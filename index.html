@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avi Mehta — Resume</title>
+  <meta name="description" content="Avi Mehta — 8th grade student at Crossroads North Middle School. Front-end developer, database learner, and competitive debater.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="mark" href="#top">
+        <span class="mark-initials" id="markInitials">AM</span>
+        <span class="mark-name" id="markName">Avi Mehta</span>
+      </a>
+
+      <nav class="nav" id="nav" aria-label="Section navigation">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#journey">Journey</a>
+        <a href="#skills">Skills</a>
+        <a href="#learning">Learning</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="topbar-actions">
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Switch to dark mode" title="Toggle theme">
+          <span aria-hidden="true" id="themeIcon">◐</span>
+        </button>
+        <button class="icon-btn nav-toggle" id="navToggle" type="button" aria-label="Open menu" aria-expanded="false">
+          <span aria-hidden="true">☰</span>
+        </button>
+      </div>
+    </div>
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+  </header>
+
+  <main id="main">
+    <!-- ================= HERO ================= -->
+    <section class="hero" id="top">
+      <div class="wrap hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow" id="heroEyebrow"></p>
+          <h1 class="hero-name" id="heroName"></h1>
+          <p class="hero-tagline" id="heroTagline"></p>
+
+          <ul class="stat-strip" id="statStrip"></ul>
+
+          <ul class="contact-list" id="contactList"></ul>
+
+          <div class="hero-actions">
+            <a class="btn btn-solid" href="#projects">See what I'm building</a>
+            <a class="btn btn-ghost" href="#skills">Technical skills</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= ABOUT ================= -->
+    <section class="section" id="about">
+      <div class="wrap">
+        <header class="section-head">
+          <span class="section-num">01</span>
+          <h2 class="section-title">About</h2>
+        </header>
+        <div class="about-grid">
+          <div class="prose" id="aboutText"></div>
+          <ul class="highlight-list" id="aboutHighlights"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PROJECTS ================= -->
+    <section class="section section-alt" id="projects">
+      <div class="wrap">
+        <header class="section-head">
+          <span class="section-num">02</span>
+          <h2 class="section-title">What I'm Building</h2>
+        </header>
+
+        <!-- The featured card renders its own screenshot gallery (see script.js). -->
+        <div id="featuredProject"></div>
+
+        <h3 class="subhead" id="moreProjectsHead">Other projects</h3>
+        <div class="project-grid" id="projectGrid"></div>
+      </div>
+    </section>
+
+    <!-- ================= CODING JOURNEY ================= -->
+    <section class="section" id="journey">
+      <div class="wrap">
+        <header class="section-head">
+          <span class="section-num">03</span>
+          <h2 class="section-title">Coding Journey</h2>
+        </header>
+        <p class="section-lede" id="journeyLede"></p>
+        <div class="timeline" id="journeyTimeline"></div>
+      </div>
+    </section>
+
+    <!-- ================= SKILLS ================= -->
+    <section class="section section-alt" id="skills">
+      <div class="wrap">
+        <header class="section-head">
+          <span class="section-num">04</span>
+          <h2 class="section-title">Technical Skills</h2>
+        </header>
+        <div class="skills-grid" id="skillsGrid"></div>
+      </div>
+    </section>
+
+    <!-- ================= LEARNING ================= -->
+    <section class="section" id="learning">
+      <div class="wrap">
+        <header class="section-head">
+          <span class="section-num">05</span>
+          <h2 class="section-title">Currently Learning</h2>
+        </header>
+        <div class="learning-grid" id="learningGrid"></div>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT ================= -->
+    <section class="section section-alt" id="contact">
+      <div class="wrap">
+        <header class="section-head">
+          <span class="section-num">06</span>
+          <h2 class="section-title">Contact</h2>
+        </header>
+        <p class="section-lede" id="contactLede"></p>
+
+        <div class="contact-layout">
+          <form class="contact-form reveal" id="contactForm" novalidate>
+            <div class="field">
+              <label for="cfName">Name</label>
+              <input id="cfName" name="name" type="text" required
+                     autocomplete="name" placeholder="Your name"
+                     aria-describedby="cfNameErr">
+              <p class="field-error" id="cfNameErr"></p>
+            </div>
+
+            <div class="field">
+              <label for="cfEmail">Email</label>
+              <input id="cfEmail" name="email" type="email" required
+                     autocomplete="email" placeholder="you@example.com"
+                     aria-describedby="cfEmailErr">
+              <p class="field-error" id="cfEmailErr"></p>
+            </div>
+
+            <div class="field">
+              <label for="cfMessage">Message</label>
+              <textarea id="cfMessage" name="message" rows="5" required
+                        placeholder="What are you working on?"
+                        aria-describedby="cfMessageErr"></textarea>
+              <p class="field-error" id="cfMessageErr"></p>
+            </div>
+
+            <!-- Honeypot: hidden from people, tempting to bots. -->
+            <input type="checkbox" name="botcheck" class="honeypot"
+                   tabindex="-1" autocomplete="off" aria-hidden="true">
+
+            <button class="btn btn-solid" type="submit" id="cfSubmit">Send message</button>
+            <p class="form-status" id="cfStatus" role="status" aria-live="polite"></p>
+          </form>
+
+          <div class="contact-grid" id="contactGrid"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <p id="footerName"></p>
+      <p class="footer-note">Built from scratch with HTML, CSS &amp; JavaScript.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
