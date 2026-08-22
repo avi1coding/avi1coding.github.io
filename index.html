@@ -3,12 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Avi Mehta — Resume</title>
-  <meta name="description" content="Avi Mehta — 8th grade student at Crossroads North Middle School. Front-end developer, database learner, and competitive debater.">
+  <title>Avi Mehta, Portfolio</title>
+  <meta name="description" content="Avi Mehta, 8th grader, coding since 2021. Projects: Blazes, Grove, Lockin and AIC. I also build websites for people who need one.">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Paper grain and warm lamp vignette. Purely decorative. -->
+  <div class="grain" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <!-- Shown only if the browser blocks autoplay until the visitor interacts. -->
+  <div class="sound-hint" id="soundHint" role="status">
+    <span class="sh-cup" aria-hidden="true"></span>
+    Tap anywhere for sound
+  </div>
+
+  <!-- Scroll progress, poured. -->
+  <div class="brew" aria-hidden="true">
+    <div class="brew-cup">
+      <div class="brew-fill" id="brewFill"></div>
+      <span class="brew-steam"><i></i><i></i></span>
+    </div>
+    <div class="brew-saucer"></div>
+  </div>
 
   <header class="topbar">
     <div class="wrap topbar-inner">
@@ -19,14 +38,21 @@
 
       <nav class="nav" id="nav" aria-label="Section navigation">
         <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#journey">Journey</a>
+        <a href="#work">Projects</a>
         <a href="#skills">Skills</a>
         <a href="#learning">Learning</a>
+        <a href="#services">Services</a>
+        <a href="#process">Ordering</a>
         <a href="#contact">Contact</a>
       </nav>
 
       <div class="topbar-actions">
+        <button class="icon-btn ambience-btn" id="ambienceToggle" type="button"
+                aria-pressed="false" aria-label="Play cafe ambience" title="Cafe ambience">
+          <span class="cup" aria-hidden="true">
+            <span class="cup-steam"><i></i><i></i><i></i></span>
+          </span>
+        </button>
         <button class="icon-btn" id="themeToggle" type="button" aria-label="Switch to dark mode" title="Toggle theme">
           <span aria-hidden="true" id="themeIcon">◐</span>
         </button>
@@ -43,93 +69,112 @@
     <section class="hero" id="top">
       <div class="wrap hero-inner">
         <div class="hero-copy">
-          <p class="eyebrow" id="heroEyebrow"></p>
-          <h1 class="hero-name" id="heroName"></h1>
+          <div class="shop-sign">
+            <span class="open-badge">Open</span>
+            <span class="est">Coding since 2021</span>
+          </div>
+
+          <div class="name-wrap">
+            <span class="steam" aria-hidden="true"><i></i><i></i><i></i></span>
+            <h1 class="hero-name" id="heroName"></h1>
+          </div>
           <p class="hero-tagline" id="heroTagline"></p>
 
           <ul class="stat-strip" id="statStrip"></ul>
 
-          <ul class="contact-list" id="contactList"></ul>
 
           <div class="hero-actions">
-            <a class="btn btn-solid" href="#projects">See what I'm building</a>
-            <a class="btn btn-ghost" href="#skills">Technical skills</a>
+            <a class="btn btn-solid" href="#work">See my projects</a>
+            <a class="btn btn-ghost" href="#contact">Get in touch</a>
           </div>
         </div>
 
       </div>
     </section>
 
-    <!-- ================= ABOUT ================= -->
+    <div class="split">
+      <aside class="split-left">
+        <!-- The deck repeats the heading of the section you are on. -->
+        <div class="chapter-deck" id="chapterDeck" aria-hidden="true"></div>
+        <nav class="chapter-nav" aria-label="Chapters">
+          <ol class="chapter-rail" id="chapterRail"></ol>
+        </nav>
+      </aside>
+
+      <div class="split-right">
     <section class="section" id="about">
       <div class="wrap">
         <header class="section-head">
           <span class="section-num">01</span>
           <h2 class="section-title">About</h2>
         </header>
+        <p class="section-lede">Who I am and how I got here.</p>
         <div class="about-grid">
           <div class="prose" id="aboutText"></div>
           <ul class="highlight-list" id="aboutHighlights"></ul>
         </div>
       </div>
     </section>
-
-    <!-- ================= PROJECTS ================= -->
-    <section class="section section-alt" id="projects">
+    <section class="section section-alt" id="work">
       <div class="wrap">
         <header class="section-head">
           <span class="section-num">02</span>
-          <h2 class="section-title">What I'm Building</h2>
+          <h2 class="section-title">My Projects</h2>
         </header>
+        <p class="section-lede">Four projects. Three are live, one I'm still building.</p>
 
         <!-- The featured card renders its own screenshot gallery (see script.js). -->
         <div id="featuredProject"></div>
 
-        <h3 class="subhead" id="moreProjectsHead">Other projects</h3>
+        <h3 class="subhead" id="moreProjectsHead">Also built</h3>
         <div class="project-grid" id="projectGrid"></div>
       </div>
     </section>
-
-    <!-- ================= CODING JOURNEY ================= -->
-    <section class="section" id="journey">
+    <section class="section" id="skills">
       <div class="wrap">
         <header class="section-head">
           <span class="section-num">03</span>
-          <h2 class="section-title">Coding Journey</h2>
+          <h2 class="section-title">Skills &amp; Tools</h2>
         </header>
-        <p class="section-lede" id="journeyLede"></p>
-        <div class="timeline" id="journeyTimeline"></div>
-      </div>
-    </section>
-
-    <!-- ================= SKILLS ================= -->
-    <section class="section section-alt" id="skills">
-      <div class="wrap">
-        <header class="section-head">
-          <span class="section-num">04</span>
-          <h2 class="section-title">Technical Skills</h2>
-        </header>
+        <p class="section-lede">What I know, and what I build with.</p>
         <div class="skills-grid" id="skillsGrid"></div>
       </div>
     </section>
-
-    <!-- ================= LEARNING ================= -->
-    <section class="section" id="learning">
+    <section class="section section-alt" id="learning">
       <div class="wrap">
         <header class="section-head">
-          <span class="section-num">05</span>
+          <span class="section-num">04</span>
           <h2 class="section-title">Currently Learning</h2>
         </header>
+        <p class="section-lede">What I'm working on next.</p>
         <div class="learning-grid" id="learningGrid"></div>
       </div>
     </section>
-
-    <!-- ================= CONTACT ================= -->
-    <section class="section section-alt" id="contact">
+    <section class="section" id="services">
+      <div class="wrap">
+        <header class="section-head">
+          <span class="section-num">05</span>
+          <h2 class="section-title">Need a Website?</h2>
+        </header>
+        <p class="section-lede" id="servicesLede"></p>
+        <div class="services-grid" id="servicesGrid"></div>
+      </div>
+    </section>
+    <section class="section section-alt" id="process">
       <div class="wrap">
         <header class="section-head">
           <span class="section-num">06</span>
-          <h2 class="section-title">Contact</h2>
+          <h2 class="section-title">How an Order Works</h2>
+        </header>
+        <p class="section-lede" id="processLede"></p>
+        <ol class="process-list" id="processList"></ol>
+      </div>
+    </section>
+    <section class="section" id="contact">
+      <div class="wrap">
+        <header class="section-head">
+          <span class="section-num">07</span>
+          <h2 class="section-title">Get in Touch</h2>
         </header>
         <p class="section-lede" id="contactLede"></p>
 
@@ -152,6 +197,20 @@
             </div>
 
             <div class="field">
+              <label id="cfTypeLabel">What is this about?</label>
+<div class="select" id="cfType">
+                <button type="button" class="select-btn" id="cfTypeBtn"
+                        aria-haspopup="listbox" aria-expanded="false">
+                  <span class="select-value" id="cfTypeValue">Just saying hi</span>
+                  <span class="select-caret" aria-hidden="true"></span>
+                </button>
+                <ul class="select-list" id="cfTypeList" role="listbox"
+                    aria-label="What is this about?" tabindex="-1"></ul>
+                <input type="hidden" name="project_type" id="cfTypeInput" value="Just saying hi">
+              </div>
+            </div>
+
+            <div class="field">
               <label for="cfMessage">Message</label>
               <textarea id="cfMessage" name="message" rows="5" required
                         placeholder="What are you working on?"
@@ -159,7 +218,6 @@
               <p class="field-error" id="cfMessageErr"></p>
             </div>
 
-            <!-- Honeypot: hidden from people, tempting to bots. -->
             <input type="checkbox" name="botcheck" class="honeypot"
                    tabindex="-1" autocomplete="off" aria-hidden="true">
 
@@ -172,12 +230,24 @@
       </div>
     </section>
 
+
+
+
+
+
+      </div>
+    </div>
   </main>
 
   <footer class="footer">
     <div class="wrap footer-inner">
       <p id="footerName"></p>
-      <p class="footer-note">Built from scratch with HTML, CSS &amp; JavaScript.</p>
+      <p class="footer-note">Built with HTML, CSS and JavaScript.</p>
+      <div class="stamp" aria-hidden="true">
+        <span class="stamp-top">Hand&nbsp;brewed</span>
+        <span class="stamp-mid">AM</span>
+        <span class="stamp-bot">Est. 2021</span>
+      </div>
     </div>
   </footer>
 
