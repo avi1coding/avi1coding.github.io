@@ -10,7 +10,7 @@ const resumeData = {
   name: "Avi Mehta",
   initials: "AM",
   headline: "Avi Mehta",
-  tagline: "I'm in 8th grade and I've been coding since 2021. I've built two study tools, a focus timer, and an AI checker. I also build websites for other people.",
+  tagline: "I'm an 8th grader at Crossroads North Middle School. I've been coding since 2021 and I'm still picking up something new every few months. I'm also on a New Jersey debate team.",
 
   stats: [
     { num: "5",  label: "Years coding" },
