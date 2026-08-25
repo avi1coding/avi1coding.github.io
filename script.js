@@ -13,9 +13,9 @@ const resumeData = {
   tagline: "I'm an 8th grader at Crossroads North Middle School. I've been coding since 2021 and I'm still picking up something new every few months. I'm also on a New Jersey debate team.",
 
   stats: [
-    { num: "5",  label: "Years coding" },
-    { num: "4",  label: "Projects built" },
-    { num: "3",  label: "Live on the web" }
+    { num: "New Jersey", label: "Based in" },
+    { num: "JavaScript", label: "Main language" },
+    { num: "Java",       label: "Learning now" }
   ],
 
   contactLede: "Want a site built? Tell me what it's for. Just want to say hi? Same form.",

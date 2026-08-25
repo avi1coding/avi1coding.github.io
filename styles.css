@@ -308,9 +308,10 @@ pre { margin: 0; }
   gap: 2.75rem; margin: 0 0 2.25rem;
 }
 .stat { display: grid; gap: 0.15rem; }
+/* These are words now, not counts, so they sit closer to label size. */
 .stat-num {
-  font-family: var(--font-mono); font-size: clamp(1.5rem, 2.6vw, 2rem);
-  font-weight: 700; line-height: 1;
+  font-family: var(--font-mono); font-size: clamp(0.98rem, 1.5vw, 1.18rem);
+  font-weight: 600; line-height: 1.3; letter-spacing: -0.01em;
   background: linear-gradient(160deg, var(--accent), var(--accent-deep));
   -webkit-background-clip: text; background-clip: text; color: transparent;
 }
