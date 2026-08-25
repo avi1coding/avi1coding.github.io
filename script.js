@@ -47,7 +47,7 @@ const resumeData = {
 
 
   servicesLede: "I also build sites for other people. No templates. I write the code, and it's yours.",
-  pricingNote: "Half upfront, half before it goes live. Two rounds of changes included. You buy your own domain and hosting, so the site stays yours even if you never talk to me again.",
+  pricingNote: "Half upfront, half before it goes live. Two rounds of changes included. You buy your own domain and hosting, so the site stays yours even if you never talk to me again. <a href=\"terms.html\">Full terms</a>",
   services: [
     {
       icon: "◐",
@@ -67,7 +67,7 @@ const resumeData = {
       icon: "◈",
       title: "Web apps",
       price: "from $400",
-      desc: "Logins, a database and a dashboard behind it, like Blazes and Grove.",
+      desc: "Logins, a database and a dashboard behind it.",
       points: ["Accounts & logins", "Databases", "Dashboards"]
     },
     {
@@ -616,7 +616,9 @@ function renderServices(d) {
     </article>`).join("");
 
   const note = el("pricingNote");
-  if (note && d.pricingNote) note.innerHTML = fmt(d.pricingNote);
+  /* This one string carries a link, so it is written by hand rather than
+     escaped. Nothing here comes from a visitor. */
+  if (note && d.pricingNote) note.innerHTML = d.pricingNote;
 }
 
 function renderProcess(d) {
