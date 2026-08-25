@@ -47,6 +47,7 @@
                0 28px 64px color-mix(in srgb, var(--cocoa) 70%, transparent);
   --on-accent: var(--cream);
 
+  --wood: color-mix(in srgb, var(--cream) 4%, transparent);
   --glow-1: color-mix(in srgb, var(--orange) 26%, transparent);
   --glow-2: color-mix(in srgb, var(--caramel) 30%, transparent);
 
@@ -57,8 +58,10 @@
   --mm-4: color-mix(in srgb, var(--caramel) 32%, var(--cream));
   --mm-5: color-mix(in srgb, var(--cream) 88%, var(--caramel));
 
-  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI",
-                  Inter, Roboto, Helvetica, Arial, sans-serif;
+  /* Fraunces is a warm, slightly wonky serif: shop signage, not a resume.
+     Caveat is the handwriting for chalk notes. Both fall back gracefully. */
+  --font-display: "Fraunces", Georgia, "Iowan Old Style", serif;
+  --font-hand: "Caveat", "Bradley Hand", "Segoe Script", cursive;
   --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI",
                Inter, Roboto, Helvetica, Arial, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
@@ -101,6 +104,7 @@
                0 28px 64px color-mix(in srgb, var(--cocoa) 16%, transparent);
   --on-accent: var(--cream);
 
+  --wood: color-mix(in srgb, var(--cocoa) 5%, transparent);
   --glow-1: color-mix(in srgb, var(--orange) 14%, transparent);
   --glow-2: color-mix(in srgb, var(--caramel) 9%, transparent);
 
@@ -886,7 +890,7 @@ a.contact-card:hover .contact-arrow { transform: translate(2px, -2px); }
    ============================================================ */
 
 :root {
-  --font-menu: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+  --font-menu: "Fraunces", Georgia, "Iowan Old Style", serif;
 }
 
 /* ---------- Paper grain + lamp vignette ---------- */
@@ -1698,3 +1702,101 @@ body {
 /* The damped scroller positions the page itself; native smooth scrolling
    would animate on top of it and the two would stutter. */
 html.js-scroll { scroll-behavior: auto; }
+
+/* ============================================================
+   THE ROOM
+   Wood under the paper, dust in the lamp light, and handwriting
+   where a cafe would have handwriting.
+   ============================================================ */
+
+/* ---------- The table ---------- */
+body {
+  background-color: var(--bg);
+  background-image:
+    repeating-linear-gradient(93deg,
+      transparent 0 7px,
+      var(--wood) 7px 8px,
+      transparent 8px 23px,
+      var(--wood) 23px 24px,
+      transparent 24px 61px);
+  background-attachment: fixed;
+}
+
+/* ---------- Dust drifting through the light ---------- */
+.motes { position: fixed; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
+.motes i {
+  position: absolute; bottom: -12px;
+  width: 3px; height: 3px; border-radius: 50%;
+  background: color-mix(in srgb, var(--cream) 55%, transparent);
+  filter: blur(0.6px);
+  opacity: 0;
+  animation: float 46s linear infinite;
+}
+:root[data-theme="light"] .motes i {
+  background: color-mix(in srgb, var(--caramel) 40%, transparent);
+}
+.motes i:nth-child(1)  { left: 6%;  animation-duration: 52s; animation-delay: 0s;   }
+.motes i:nth-child(2)  { left: 14%; animation-duration: 61s; animation-delay: -8s;  width: 2px; height: 2px; }
+.motes i:nth-child(3)  { left: 23%; animation-duration: 44s; animation-delay: -21s; }
+.motes i:nth-child(4)  { left: 31%; animation-duration: 68s; animation-delay: -35s; width: 4px; height: 4px; }
+.motes i:nth-child(5)  { left: 39%; animation-duration: 49s; animation-delay: -12s; }
+.motes i:nth-child(6)  { left: 47%; animation-duration: 57s; animation-delay: -44s; width: 2px; height: 2px; }
+.motes i:nth-child(7)  { left: 55%; animation-duration: 63s; animation-delay: -27s; }
+.motes i:nth-child(8)  { left: 64%; animation-duration: 46s; animation-delay: -5s;  }
+.motes i:nth-child(9)  { left: 72%; animation-duration: 71s; animation-delay: -39s; width: 4px; height: 4px; }
+.motes i:nth-child(10) { left: 80%; animation-duration: 54s; animation-delay: -17s; }
+.motes i:nth-child(11) { left: 88%; animation-duration: 59s; animation-delay: -50s; width: 2px; height: 2px; }
+.motes i:nth-child(12) { left: 95%; animation-duration: 47s; animation-delay: -31s; }
+
+@keyframes float {
+  0%   { transform: translate(0, 0); opacity: 0; }
+  8%   { opacity: 0.5; }
+  50%  { transform: translate(26px, -52vh); opacity: 0.35; }
+  92%  { opacity: 0.4; }
+  100% { transform: translate(-18px, -104vh); opacity: 0; }
+}
+
+/* ---------- Fraunces needs different spacing than a sans ---------- */
+h1, h2, h3, h4 { font-optical-sizing: auto; letter-spacing: -0.015em; }
+.hero-name { font-weight: 800; letter-spacing: -0.022em; }
+.section-title, .chapter-title { font-weight: 700; letter-spacing: -0.018em; }
+.menu-name, .featured h3, .service h3, .step-body h3, .learn-card h3,
+.side-name, .contact-card h3 { letter-spacing: -0.012em; }
+.mark-name { letter-spacing: -0.01em; }
+
+/* ---------- Handwriting, where a cafe would write by hand ---------- */
+.est {
+  font-family: var(--font-hand); font-style: normal;
+  font-size: 1.18rem; font-weight: 600;
+  color: var(--text-soft);
+}
+.footer-note {
+  font-family: var(--font-hand) !important; font-style: normal !important;
+  font-size: 1.1rem !important; font-weight: 500;
+}
+.chapter-lede {
+  font-family: var(--font-hand); font-style: normal;
+  font-size: 1.22rem; font-weight: 500;
+  line-height: 1.5; color: var(--text-soft);
+}
+.sound-hint { font-family: var(--font-hand); font-size: 1rem; letter-spacing: 0.02em; text-transform: none; }
+
+/* A chalk note pinned above the featured project. */
+.featured-badge + h3::before {
+  content: "today's special";
+  display: block;
+  font-family: var(--font-hand);
+  font-size: 1.05rem; font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0.01em;
+  transform: rotate(-1.4deg);
+  margin-bottom: 0.15rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motes { display: none; }
+}
+@media print {
+  .motes { display: none !important; }
+  body { background-image: none; }
+}

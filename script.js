@@ -1030,6 +1030,26 @@ const Ambience = (() => {
     sources.push(osc);
   }
 
+  /* The shop door: two partials, the higher one decaying first. */
+  function chime() {
+    const t = ctx.currentTime + 0.03;
+    [[988, 0.030, 1.5], [1319, 0.020, 1.1]].forEach(([hz, peak, dur], i) => {
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.0001, t + i * 0.06);
+      gain.gain.exponentialRampToValueAtTime(peak, t + i * 0.06 + 0.008);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + i * 0.06 + dur);
+      gain.connect(master);
+
+      const osc = ctx.createOscillator();
+      osc.type = "sine";
+      osc.frequency.value = hz;
+      osc.connect(gain);
+      osc.start(t + i * 0.06);
+      osc.stop(t + i * 0.06 + dur + 0.05);
+      sources.push(osc);
+    });
+  }
+
   function schedule(fn, ms) { timers.push(setTimeout(fn, ms)); }
 
   async function start() {
@@ -1089,6 +1109,7 @@ const Ambience = (() => {
                12000 + Math.random() * 22000);
     })();
 
+    chime();
     return true;
   }
 
@@ -1113,6 +1134,8 @@ const Ambience = (() => {
 
   return {
     async toggle() { if (playing) { stop(); return false; } return start(); },
+    /* A spoon against a cup, for anything the visitor clicks. */
+    tap() { if (playing) clink(); },
     get playing() { return playing; }
   };
 })();
@@ -1346,6 +1369,19 @@ function initSelect() {
  */
 const SCROLL = { WHEEL_STEP: 0.42, EASE: 0.055 };
 
+/** A soft clink when you press something. Only while the ambience is on,
+ *  so the page is never noisy for someone who did not ask for sound. */
+function initTapSounds() {
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest) return;
+    const hit = e.target.closest(
+      '.rail-item a, .nav a, .btn, .icon-btn, .select-option, ' +
+      '.select-btn, .gallery-nav, .gallery-dot, .project-links a, .contact-card'
+    );
+    if (hit) Ambience.tap();
+  }, { passive: true });
+}
+
 function initSmoothScroll() {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const fine = window.matchMedia("(pointer: fine)").matches;
@@ -1433,5 +1469,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initContactForm();
   initSelect();
   initSmoothScroll();
+  initTapSounds();
   initAmbience();
 });
