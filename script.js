@@ -39,15 +39,11 @@ const resumeData = {
   about: [
     "I started coding in 2021 with Scratch and Code.org. In 2024 I moved to HTML, CSS and JavaScript, and in 2025 I picked up MySQL and Python. Now I'm currently learning Java.",
     "Right now I'm building Blazes. I started it because studying from notes and practice questions is boring, and traditional fun education websites are either boring or take too long to put in questions.",
-    "Other than coding, I also do robotics and debate, and have participated in clubs such as FBLA and Mathcounts. I like cooking, table tennis, and biking."
+    "Other than coding, I also do robotics, band, and debate, and have participated in clubs such as FBLA and Mathcounts. I like cooking, table tennis, and biking."
   ],
 
 
-  aboutHighlights: [
-    { icon: "◆", text: "8th grader at Crossroads North Middle School" },
-    { icon: "◆", text: "JavaScript is my main language" },
-    { icon: "◆", text: "On a New Jersey debate team" }
-  ],
+
 
 
   servicesLede: "I also build sites for other people. No templates. I write the code, and it's yours.",
@@ -269,9 +265,7 @@ function renderStats(stats) {
 
 function renderAbout(d) {
   el("aboutText").innerHTML = d.about.map((p) => `<p>${fmt(p)}</p>`).join("");
-  el("aboutHighlights").innerHTML = d.aboutHighlights.map((h) => `
-    <li><span class="hi" aria-hidden="true">${esc(h.icon)}</span><span>${fmt(h.text)}</span></li>
-  `).join("");
+
 }
 
 function galleryMarkup() {
