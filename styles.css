@@ -1764,18 +1764,6 @@ h1, h2, h3, h4 { font-optical-sizing: auto; letter-spacing: -0.015em; }
 }
 .sound-hint { font-family: var(--font-hand); font-size: 1rem; letter-spacing: 0.02em; text-transform: none; }
 
-/* A chalk note pinned above the featured project. */
-.featured-badge + h3::before {
-  content: "today's special";
-  display: block;
-  font-family: var(--font-hand);
-  font-size: 1.05rem; font-weight: 500;
-  color: var(--text-muted);
-  letter-spacing: 0.01em;
-  transform: rotate(-1.4deg);
-  margin-bottom: 0.15rem;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .motes { display: none; }
 }

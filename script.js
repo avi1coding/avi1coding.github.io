@@ -47,7 +47,7 @@ const resumeData = {
 
 
   servicesLede: "I also build sites for other people. No templates. I write the code, and it's yours.",
-  pricingNote: "Half upfront, half before it goes live. Two rounds of changes included. You buy your own domain and hosting, so the site stays yours even if you never talk to me again. <a href=\"terms.html\">Full terms</a>",
+  pricingNote: "Half is paid upfront, the other half is paid before it goes live. Domain and hosting are not provided. <a href=\"terms.html\">Full terms</a>",
   services: [
     {
       icon: "◐",
