@@ -1270,8 +1270,8 @@ body {
 .section-lede { line-height: 1.85; }
 
 /* Air. A calm page is mostly empty space. */
-.section { padding: clamp(5.5rem, 13vw, 11rem) 0; }
-.section-head { margin-bottom: clamp(2.75rem, 5vw, 4.5rem); }
+.section { padding: clamp(3.5rem, 8vw, 6rem) 0; }
+.section-head { margin-bottom: clamp(2rem, 3.5vw, 3rem); }
 .menu-item { padding: 2.4rem 0; }
 .hero { padding: clamp(5rem, 12vw, 9rem) 0 clamp(5rem, 10vw, 8rem); }
 
@@ -1453,7 +1453,7 @@ body {
   .split-right .section {
     min-height: 100vh;
     display: grid; align-content: center;
-    padding: clamp(6rem, 12vw, 9rem) 0;
+    padding: clamp(3.5rem, 7vw, 5.5rem) 0;
   }
   .split-right .wrap {
     width: min(100% - 4rem, 660px);
@@ -1500,7 +1500,7 @@ body {
 @media (min-width: 1000px) {
   /* Each chapter holds the screen for longer than it needs, so you
      arrive, settle, read, and only then move on. */
-  .split-right .section { min-height: 165vh; scroll-snap-align: center; }
+  .split-right .section { min-height: 112vh; scroll-snap-align: center; }
 
   /* Snapping is for browsers doing their own scrolling. When the damped
      scroller is active it drives the page, so snap would fight it. */

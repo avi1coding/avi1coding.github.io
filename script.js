@@ -80,6 +80,7 @@ const resumeData = {
   ],
 
   processLede: "From the first message to a live site.",
+  processNote: "Payment, changes, domains and who owns the code at the end are all written out on the <a href=\"terms.html\">terms page</a>.",
   process: [
     { step: "01", title: "Tell me what you need", desc: "Message me what the site is for and what you want on it. I'll reply with what I would build." },
     { step: "02", title: "I design it", desc: "You'll see the layout before I build anything, so changes are quick to make at this stage." },
@@ -636,6 +637,9 @@ function renderProcess(d) {
         <p>${fmt(st.desc)}</p>
       </div>
     </li>`).join("");
+
+  const note = el("processNote");
+  if (note && d.processNote) note.innerHTML = d.processNote;
 }
 
 function renderAll(d) {
