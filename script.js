@@ -91,7 +91,6 @@ const resumeData = {
   projects: [
     {
       featured: true,
-      badge: "Currently building",
       year: "",
       title: "Blazes",
       desc: "Blazes turns studying into a game. You put your notes in, it makes questions out of them, and answering them earns skins, packs and achievements. Teachers get classes, question kits, live games, and analytics.",
@@ -321,7 +320,7 @@ function renderProjects(projects) {
   el("featuredProject").innerHTML = featured ? `
     <article class="featured reveal">
       <div>
-        <span class="featured-badge">${esc(featured.badge || "Featured build")}</span>
+        ${featured.badge ? `<span class="featured-badge">${esc(featured.badge)}</span>` : ""}
         <h3>${fmt(featured.title)}</h3>
         ${featured.year ? `<p class="featured-year">${fmt(featured.year)}</p>` : ""}
         <p class="featured-desc">${fmt(featured.desc)}</p>
@@ -332,8 +331,6 @@ function renderProjects(projects) {
       </div>
       ${galleryMarkup()}
     </article>` : "";
-
-  el("moreProjectsHead").style.display = rest.length ? "" : "none";
 
   /* Laid out like a menu board: name, dotted leader, year. */
 el("projectGrid").innerHTML = rest.map((p) => `
