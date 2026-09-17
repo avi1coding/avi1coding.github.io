@@ -412,7 +412,7 @@ function initTheme() {
     btn.setAttribute("aria-label", mode === "dark" ? "Switch to light mode" : "Switch to dark mode");
   }
 
-  apply(stored === "light" ? "light" : "dark");
+  apply(stored === "dark" ? "dark" : "light");
 
   btn.addEventListener("click", () => {
     const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
@@ -463,14 +463,10 @@ function initScrollProgress() {
   const topbar = document.querySelector(".topbar");
   let ticking = false;
 
-  const brew = el("brewFill");
-
   function update() {
     const max = document.documentElement.scrollHeight - window.innerHeight;
     const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
     bar.style.width = pct + "%";
-    /* The cup fills as you read. */
-    if (brew) brew.style.height = pct + "%";
     topbar.classList.toggle("scrolled", window.scrollY > 8);
     ticking = false;
   }
@@ -622,343 +618,9 @@ function initContactForm() {
   });
 }
 
-
-/* ============================================================
-   Cafe ambience
-   ------------------------------------------------------------
-   Everything you hear is synthesised in the browser with the Web
-   Audio API — there is no audio file and nothing is downloaded.
-   Four layers: room tone, vinyl crackle, a slow Rhodes-ish chord
-   pad, and the occasional cup clink.
-
-   It is on by default. Browsers block audio until the visitor interacts,
-   so if that happens it starts on their first move and says so via #soundHint.
-   ============================================================ */
-const Ambience = (() => {
-  let ctx = null, master = null;
-  let timers = [], sources = [], playing = false;
-
-  const midi = (n) => 440 * Math.pow(2, (n - 69) / 12);
-
-  /* A slow loop in F. Warm, and it never resolves hard. */
-  const CHORDS = [
-    [53, 57, 60, 64],  // Fmaj7
-    [50, 53, 57, 60],  // Dm7
-    [55, 58, 62, 65],  // Gm7
-    [48, 52, 55, 58]   // C7
-  ];
-
-  function noiseBuffer(seconds, kind) {
-    const len = Math.floor(ctx.sampleRate * seconds);
-    const buf = ctx.createBuffer(1, len, ctx.sampleRate);
-    const d = buf.getChannelData(0);
-
-    if (kind === "white") {
-      for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
-    } else if (kind === "brown") {
-      /* Brown noise sits low and reads as room rumble rather than hiss. */
-      let last = 0;
-      for (let i = 0; i < len; i++) {
-        const white = Math.random() * 2 - 1;
-        last = (last + 0.02 * white) / 1.02;
-        d[i] = last * 3.5;
-      }
-    } else {
-      /* Sparse decaying pops — vinyl surface noise. */
-      const pops = Math.floor(seconds * 20);
-      for (let p = 0; p < pops; p++) {
-        const at = Math.floor(Math.random() * (len - 40));
-        const amp = (0.2 + Math.random() * 0.5) * (Math.random() < 0.5 ? -1 : 1);
-        for (let k = 0; k < 30; k++) {
-          d[at + k] += amp * Math.exp(-k / 4) * (0.4 + Math.random() * 0.6);
-        }
-      }
-    }
-    return buf;
-  }
-
-  function loopNoise(kind, filterType, cutoff, level) {
-    const src = ctx.createBufferSource();
-    src.buffer = noiseBuffer(4, kind);
-    src.loop = true;
-
-    const filter = ctx.createBiquadFilter();
-    filter.type = filterType;
-    filter.frequency.value = cutoff;
-
-    const gain = ctx.createGain();
-    gain.gain.value = level;
-
-    src.connect(filter).connect(gain).connect(master);
-    src.start();
-    sources.push(src);
-    return filter;
-  }
-
-  function playChord(notes, when) {
-    notes.forEach((n, i) => {
-      const gain = ctx.createGain();
-      gain.gain.setValueAtTime(0.0001, when);
-      gain.gain.exponentialRampToValueAtTime(0.055 / (i + 1.4), when + 1.8);
-      gain.gain.exponentialRampToValueAtTime(0.0001, when + 5.2);
-      gain.connect(master);
-
-      /* Two slightly detuned sines per note gives a soft chorus. */
-      [0, 6].forEach((cents) => {
-        const osc = ctx.createOscillator();
-        osc.type = "sine";
-        osc.frequency.value = midi(n);
-        osc.detune.value = cents;
-        osc.connect(gain);
-        osc.start(when);
-        osc.stop(when + 5.4);
-        sources.push(osc);
-      });
-    });
-  }
-
-  function clink() {
-    const when = ctx.currentTime + 0.05;
-    const gain = ctx.createGain();
-    gain.gain.setValueAtTime(0.0001, when);
-    gain.gain.exponentialRampToValueAtTime(0.028, when + 0.004);
-    gain.gain.exponentialRampToValueAtTime(0.0001, when + 0.4);
-    gain.connect(master);
-
-    const osc = ctx.createOscillator();
-    osc.type = "triangle";
-    osc.frequency.value = 1500 + Math.random() * 700;
-    osc.connect(gain);
-    osc.start(when);
-    osc.stop(when + 0.45);
-    sources.push(osc);
-  }
-
-  /* Rain: broadband hiss shaped to the 0.9-5kHz band, with a slow LFO on
-     the gain so it gusts instead of sitting flat. */
-  function rain() {
-    const src = ctx.createBufferSource();
-    src.buffer = noiseBuffer(4, "white");
-    src.loop = true;
-
-    const hp = ctx.createBiquadFilter();
-    hp.type = "highpass"; hp.frequency.value = 900;
-
-    const lp = ctx.createBiquadFilter();
-    lp.type = "lowpass"; lp.frequency.value = 5200;
-
-    const gain = ctx.createGain();
-    gain.gain.value = 0.021;
-
-    const lfo = ctx.createOscillator();
-    const lfoGain = ctx.createGain();
-    lfo.frequency.value = 0.07;
-    lfoGain.gain.value = 0.008;
-    lfo.connect(lfoGain).connect(gain.gain);
-    lfo.start();
-
-    src.connect(hp).connect(lp).connect(gain).connect(master);
-    src.start();
-    sources.push(src, lfo);
-  }
-
-  /* A single drop: a sine whose pitch falls away fast. */
-  function drip() {
-    const t = ctx.currentTime + 0.02;
-
-    const gain = ctx.createGain();
-    gain.gain.setValueAtTime(0.0001, t);
-    gain.gain.exponentialRampToValueAtTime(0.018, t + 0.005);
-    gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.22);
-    gain.connect(master);
-
-    const osc = ctx.createOscillator();
-    osc.type = "sine";
-    const f = 850 + Math.random() * 950;
-    osc.frequency.setValueAtTime(f, t);
-    osc.frequency.exponentialRampToValueAtTime(f * 0.45, t + 0.18);
-    osc.connect(gain);
-    osc.start(t);
-    osc.stop(t + 0.26);
-    sources.push(osc);
-  }
-
-  /* The shop door: two partials, the higher one decaying first. */
-  function chime() {
-    const t = ctx.currentTime + 0.03;
-    [[988, 0.030, 1.5], [1319, 0.020, 1.1]].forEach(([hz, peak, dur], i) => {
-      const gain = ctx.createGain();
-      gain.gain.setValueAtTime(0.0001, t + i * 0.06);
-      gain.gain.exponentialRampToValueAtTime(peak, t + i * 0.06 + 0.008);
-      gain.gain.exponentialRampToValueAtTime(0.0001, t + i * 0.06 + dur);
-      gain.connect(master);
-
-      const osc = ctx.createOscillator();
-      osc.type = "sine";
-      osc.frequency.value = hz;
-      osc.connect(gain);
-      osc.start(t + i * 0.06);
-      osc.stop(t + i * 0.06 + dur + 0.05);
-      sources.push(osc);
-    });
-  }
-
-  function schedule(fn, ms) { timers.push(setTimeout(fn, ms)); }
-
-  async function start() {
-    if (playing) return false;
-    const AC = window.AudioContext || window.webkitAudioContext;
-    if (!AC) return false;
-
-    ctx = ctx || new AC();
-    if (ctx.state !== "running") {
-      /* Do NOT simply await resume(). While autoplay is blocked the promise
-         can hang forever, which would strand us before arming the fallback.
-         Race it against a short timeout instead. */
-      await Promise.race([
-        ctx.resume().catch(() => {}),
-        new Promise((r) => setTimeout(r, 250))
-      ]);
-    }
-    /* If it is still not running, the browser is holding audio until the
-       visitor interacts. Report failure so the caller can arm a gesture. */
-    if (ctx.state !== "running") return false;
-
-    master = ctx.createGain();
-    master.gain.setValueAtTime(0.0001, ctx.currentTime);
-    master.gain.exponentialRampToValueAtTime(0.34, ctx.currentTime + 6);
-    master.connect(ctx.destination);
-
-    /* Room tone, with a slow filter drift so it never sits still. */
-    const roomFilter = loopNoise("brown", "lowpass", 420, 0.038);
-    const lfo = ctx.createOscillator();
-    const lfoGain = ctx.createGain();
-    lfo.frequency.value = 0.05;
-    lfoGain.gain.value = 120;
-    lfo.connect(lfoGain).connect(roomFilter.frequency);
-    lfo.start();
-    sources.push(lfo);
-
-    loopNoise("crackle", "highpass", 1800, 0.017);
-    rain();
-
-    playing = true;
-
-    (function nextDrip() {
-      schedule(() => { if (playing) { drip(); nextDrip(); } },
-               1400 + Math.random() * 3800);
-    })();
-
-    let step = 0;
-    (function nextChord() {
-      if (!playing) return;
-      playChord(CHORDS[step % CHORDS.length], ctx.currentTime + 0.1);
-      step++;
-      schedule(nextChord, 6200);
-    })();
-
-    (function nextClink() {
-      schedule(() => { if (playing) { clink(); nextClink(); } },
-               12000 + Math.random() * 22000);
-    })();
-
-    chime();
-    return true;
-  }
-
-  function stop() {
-    if (!playing) return;
-    playing = false;
-
-    const now = ctx.currentTime;
-    master.gain.cancelScheduledValues(now);
-    master.gain.setValueAtTime(master.gain.value, now);
-    master.gain.exponentialRampToValueAtTime(0.0001, now + 0.8);
-
-    timers.forEach(clearTimeout);
-    timers = [];
-
-    const dying = sources;
-    sources = [];
-    setTimeout(() => {
-      dying.forEach((s) => { try { s.stop(); } catch (e) { /* already stopped */ } });
-    }, 900);
-  }
-
-  return {
-    async toggle() { if (playing) { stop(); return false; } return start(); },
-    /* A spoon against a cup, for anything the visitor clicks. */
-    tap() { if (playing) clink(); },
-    get playing() { return playing; }
-  };
-})();
-
-function initAmbience() {
-  const btn = el("ambienceToggle");
-  if (!btn) return;
-
-  const KEY = "avi-ambience";
-  const hint = el("soundHint");
-
-  function reflect(on) {
-    btn.setAttribute("aria-pressed", String(on));
-    btn.setAttribute("aria-label", on ? "Stop cafe ambience" : "Play cafe ambience");
-    btn.title = on ? "Ambience on" : "Cafe ambience";
-    document.body.classList.toggle("ambience-on", on);
-    if (on) hideHint();
-  }
-
-  function showHint() { if (hint) hint.classList.add("show"); }
-  function hideHint() { if (hint) hint.classList.remove("show"); }
-
-  btn.addEventListener("click", async () => {
-    const on = await Ambience.toggle();
-    reflect(on);
-    try { localStorage.setItem(KEY, on ? "on" : "off"); } catch (e) { /* private mode */ }
-  });
-
-  let stored = null;
-  try { stored = localStorage.getItem(KEY); } catch (e) { /* private mode */ }
-
-  /* Ambience is ON by default. Anyone who turns it off stays off. */
-  if (stored === "off") return;
-
-  Ambience.toggle().then((on) => {
-    if (on) { reflect(true); return; }
-
-    /* Blocked by the browser's autoplay policy — every major browser
-       refuses sound before the visitor interacts. Start on whatever
-       they do first, and say so quietly in the meantime. */
-    showHint();
-
-    const events = ["pointermove", "pointerdown", "click", "keydown", "scroll", "touchstart", "wheel", "focus"];
-    let starting = false;
-
-    /* Only tear down once it actually starts. An untrusted or early event
-       can fail, and stranding the visitor with no sound and no retry
-       would be worse than trying again on their next move. */
-    const wake = async () => {
-      if (starting || Ambience.playing) return;
-      starting = true;
-      const on = await Ambience.toggle();
-      starting = false;
-
-      if (!on) return;
-      events.forEach((ev) => window.removeEventListener(ev, wake));
-      reflect(true);
-      hideHint();
-    };
-    events.forEach((ev) => window.addEventListener(ev, wake, { passive: true }));
-
-    /* Stop showing the hint after a while, but keep listening. */
-    setTimeout(hideHint, 14000);
-  });
-}
-
-
 /** Splits each section title into words so they settle in one at a time.
- *  The hero name is left whole — its gradient is clipped to the text, and
- *  transformed children would break that clip. */
+ *  The hero name is left whole so its settle-in animation isn't broken
+ *  up by per-word transforms. */
 function initTextReveal() {
   document.querySelectorAll(".section-title").forEach((h) => {
     const words = h.textContent.trim().split(/\s+/);
@@ -1122,18 +784,6 @@ function initSelect() {
  */
 const SCROLL = { WHEEL_STEP: 0.42, EASE: 0.055 };
 
-/** A soft clink when you press something. Only while the ambience is on,
- *  so the page is never noisy for someone who did not ask for sound. */
-function initTapSounds() {
-  document.addEventListener("click", (e) => {
-    if (!e.target.closest) return;
-    const hit = e.target.closest(
-      '.rail-item a, .nav a, .btn, .icon-btn, .select-option, .select-btn, .contact-card'
-    );
-    if (hit) Ambience.tap();
-  }, { passive: true });
-}
-
 function initSmoothScroll() {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const fine = window.matchMedia("(pointer: fine)").matches;
@@ -1228,6 +878,4 @@ document.addEventListener("DOMContentLoaded", () => {
   initContactForm();
   initSelect();
   initSmoothScroll();
-  initTapSounds();
-  initAmbience();
 });
