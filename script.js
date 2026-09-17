@@ -10,7 +10,6 @@ const resumeData = {
   name: "Avi Mehta",
   initials: "AM",
   headline: "Avi Mehta",
-  tagline: "I'm an 8th grader at Crossroads North Middle School. I've been coding since 2021 and I'm still picking up something new every few months. I'm also on a New Jersey debate team.",
 
   stats: [
     { num: "New Jersey", label: "Based in" },
@@ -176,10 +175,7 @@ function slotClass(title) { return isPlaceholder(title) ? " is-slot" : ""; }
 
 function renderIdentity(d) {
   document.title = `${d.name}, Portfolio`;
-  el("markInitials").textContent = d.initials;
-  el("markName").textContent = d.name;
   el("heroName").textContent = d.headline;
-  el("heroTagline").innerHTML = fmt(d.tagline);
   el("footerName").innerHTML = `© ${new Date().getFullYear()} ${esc(d.name)}`;
 }
 

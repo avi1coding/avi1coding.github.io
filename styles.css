@@ -185,20 +185,6 @@ pre { margin: 0; }
 .topbar.scrolled { border-bottom-color: var(--border); }
 .topbar-inner { display: flex; align-items: center; gap: 1.25rem; height: 72px; }
 
-.mark { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; flex-shrink: 0; }
-.mark-initials {
-  display: grid; place-items: center;
-  width: 34px; height: 34px; border-radius: 10px;
-  background: linear-gradient(135deg, var(--accent-solid), var(--accent-deep));
-  color: var(--cream);
-  font-family: var(--font-mono); font-weight: 700; font-size: 0.8rem;
-  box-shadow: 0 2px 10px var(--glow-1);
-}
-.mark-name {
-  font-family: var(--font-display); font-weight: 700;
-  font-size: 1rem; color: var(--heading); letter-spacing: -0.02em;
-}
-
 .nav { display: flex; gap: 0.1rem; margin-left: auto; flex-wrap: wrap; }
 .nav a {
   position: relative;
@@ -295,11 +281,6 @@ pre { margin: 0; }
   background: linear-gradient(150deg, var(--heading) 30%, var(--accent) 130%);
   -webkit-background-clip: text; background-clip: text;
   color: transparent;
-}
-.hero-tagline {
-  font-size: clamp(1rem, 1.6vw, 1.15rem);
-  color: var(--text-soft); max-width: 46ch; margin: 0 auto 2.25rem;
-  line-height: 1.7;
 }
 
 /* Stat strip — flex so it reads well at any number of stats. */
@@ -584,7 +565,6 @@ a.contact-card:hover .contact-arrow { transform: translate(2px, -2px); }
     clip: auto; white-space: normal; overflow: visible;
     display: grid; gap: 1.5rem;
   }
-  .mark-name { display: none; }
   .nav-toggle { display: grid; }
   .nav {
     position: absolute; top: 72px; left: 0; right: 0;
@@ -1043,7 +1023,6 @@ body {
 .hero-name {
   animation: settle 2.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
-.hero-tagline { animation: settle 2.4s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both; }
 .stat-strip   { animation: settle 2.4s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both; }
 .hero-actions { animation: settle 2.4s cubic-bezier(0.16, 1, 0.3, 1) 1.3s both; }
 .shop-sign    { animation: settle 2.4s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both; }
@@ -1087,7 +1066,7 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .grain, .vignette { animation: none !important; }
-  .hero-name, .hero-tagline, .stat-strip,
+  .hero-name, .stat-strip,
   .hero-actions, .shop-sign { animation: none !important; }
   .section-title .w i { transform: none; opacity: 1; }
   .reveal { filter: none; }
@@ -1438,7 +1417,6 @@ h1, h2, h3, h4 { font-optical-sizing: auto; letter-spacing: -0.015em; }
 .hero-name { font-weight: 800; letter-spacing: -0.022em; }
 .section-title, .chapter-title { font-weight: 700; letter-spacing: -0.018em; }
 .service h3, .step-body h3, .learn-card h3, .contact-card h3 { letter-spacing: -0.012em; }
-.mark-name { letter-spacing: -0.01em; }
 
 /* ---------- Handwriting, where a cafe would write by hand ---------- */
 .est {
