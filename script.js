@@ -38,7 +38,6 @@ const resumeData = {
 
   about: [
     "I started coding in 2021 with Scratch and Code.org. In 2024 I moved to HTML, CSS and JavaScript, and in 2025 I picked up MySQL and Python. Now I'm currently learning Java.",
-    "Right now I'm building Blazes. I started it because studying from notes and practice questions is boring, and traditional fun education websites are either boring or take too long to put in questions.",
     "Other than coding, I also do robotics, band, and debate, and have participated in clubs such as FBLA and Mathcounts. I like cooking, table tennis, and biking."
   ],
 
@@ -88,75 +87,7 @@ const resumeData = {
     { step: "04", title: "You get the code", desc: "I test it on multiple devices and browsers, then send you the complete code." }
   ],
 
-  projects: [
-    {
-      featured: true,
-      year: "",
-      title: "Blazes",
-      desc: "Blazes turns studying into a game. You put your notes in, it makes questions out of them, and answering them earns skins, packs and achievements. Teachers get classes, question kits, live games, and analytics.",
-      tags: ["React", "JavaScript", "MySQL", "HTML/CSS"]
-    },
-    {
-      icon: "❖",
-      year: "2026",
-      title: "Grove",
-      desc: "Your notes as a skill tree: split a topic into subtopics, split those again, and quiz yourself branch by branch.",
-      tags: ["JavaScript", "Render"],
-      url: "https://grove-dj26.onrender.com",
-      repo: "https://github.com/avi1coding/Grove"
-    },
-    {
-      icon: "◉",
-      year: "2026",
-      title: "Imposter",
-      desc: "A party game for 3 to 99 players on one phone. Everyone gets a secret word except the imposters, and you talk and vote to work out who is faking it. Four modes to play.",
-      tags: ["HTML/CSS", "JavaScript", "GitHub Pages"],
-      url: "https://avi1coding.github.io/imposter/",
-      repo: "https://github.com/avi1coding/imposter"
-    },
-    {
-      icon: "◈",
-      year: "2025",
-      title: "AIC",
-      desc: "An AI checker and humanizer. Log in, paste text, and it tells you whether it was written by AI. The humanizer rewrites AI text to sound human.",
-      tags: ["TypeScript", "AI", "Accounts", "Render"],
-      url: "https://aic-egy7.onrender.com/",
-      repo: "https://github.com/avi1coding/AIC"
-    }
-  ],
 
-  gallery: [
-    {
-      src: "images/blazes-game.png",
-      alt: "A Blazes game in progress, showing a multiple choice question with four answer options, a score counter and a countdown timer.",
-      caption: "A question mid-game: four options, a timer, a score."
-    },
-    {
-      src: "images/blazes-home.png",
-      alt: "The Blazes home screen with quick action cards for starting a game, building a kit, managing classes and viewing stats.",
-      caption: "Home: start a game, build a question kit, manage classes, or check stats. Level and BlazesBucks sit in the header."
-    },
-    {
-      src: "images/blazes-achievements.png",
-      alt: "The Blazes achievements screen showing unlock progress across categories including Getting Started, Answer Milestones, Streaks and Accuracy.",
-      caption: "103 achievements across streaks, accuracy and milestones."
-    },
-    {
-      src: "images/blazes-level.png",
-      alt: "A Blazes player profile showing level 3, an XP progress ring, a daily XP goal and a BlazesBucks balance.",
-      caption: "Levels, a daily XP goal, and your BlazesBucks."
-    },
-    {
-      src: "images/blazes-stats.png",
-      alt: "The Blazes analytics dashboard showing student count, average accuracy, total questions, an accuracy distribution chart and performance by category.",
-      caption: "Teacher analytics: accuracy and scores, broken down by subject."
-    },
-    {
-      src: "images/blazes-pricing.png",
-      alt: "The Blazes plans and pricing page showing the Blazes Plus subscription tier and a BlazesBucks store.",
-      caption: "Plans and the BlazesBucks store. Cosmetics only, nothing pay-to-win."
-    }
-  ],
 
 
   
@@ -166,9 +97,7 @@ const resumeData = {
     { icon: "◆", title: "Java",
       desc: "A new language for me. Stricter than JavaScript, and used for bigger apps." },
     { icon: "◈", title: "Sorting Algorithms",
-      desc: "How the classic sorts work, and why one beats another on different data." },
-    { icon: "◇", title: "Ship Blazes",
-      desc: "Finish it by the end of 2026. Student side and teacher side, working end to end." }
+      desc: "How the classic sorts work, and why one beats another on different data." }
   ],
 
 
@@ -182,8 +111,8 @@ const resumeData = {
           { name: "HTML",       note: "since 2024" },
           { name: "CSS",        note: "since 2024" },
           { name: "JavaScript", note: "main language" },
-          { name: "React",      note: "Blazes" },
-          { name: "TypeScript", note: "AIC" },
+          { name: "React",      note: "building UI" },
+          { name: "TypeScript", note: "type-safe JS" },
           { name: "Bootstrap",  note: "layout & components" }
         ]
       },
@@ -193,7 +122,7 @@ const resumeData = {
         skills: [
           { name: "Node.js", note: "servers & tooling" },
           { name: "Python",  note: "since 2025" },
-          { name: "MySQL",   note: "Blazes database" }
+          { name: "MySQL",   note: "storing data" }
         ]
       },
       {
@@ -201,8 +130,8 @@ const resumeData = {
         color: "var(--mm-3)",
         skills: [
           { name: "Claude",         note: "building & debugging" },
-          { name: "AI integration", note: "quiz generation, captioning" },
-          { name: "Prompting",      note: "built into Blazes" }
+          { name: "AI integration", note: "connecting APIs" },
+          { name: "Prompting",      note: "getting better output" }
         ]
       },
       {
@@ -268,187 +197,9 @@ function renderAbout(d) {
 
 }
 
-function galleryMarkup() {
-  return `
-    <section class="gallery" id="gallery" aria-roledescription="carousel" aria-label="Screenshots of Blazes">
-      <div class="browser">
-        <div class="browser-bar">
-          <span class="browser-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-          <span class="browser-url">blazes.app</span>
-          <span class="gallery-counter" id="galleryCounter"></span>
-        </div>
 
-        <div class="gallery-frame">
-          <button class="gallery-nav prev" id="galleryPrev" type="button" aria-label="Previous screenshot">
-            <span aria-hidden="true">‹</span>
-          </button>
 
-          <div class="gallery-viewport" id="galleryViewport" tabindex="0"
-               aria-label="Screenshot viewer, use arrow keys to navigate">
-            <div class="gallery-track" id="galleryTrack"></div>
-          </div>
 
-          <button class="gallery-nav next" id="galleryNext" type="button" aria-label="Next screenshot">
-            <span aria-hidden="true">›</span>
-          </button>
-        </div>
-      </div>
-
-      <p class="gallery-caption" id="galleryCaption" aria-live="polite"></p>
-      <div class="gallery-dots" id="galleryDots" role="tablist" aria-label="Choose screenshot"></div>
-    </section>`;
-}
-
-function projectLinks(p) {
-  const link = (href, label) =>
-    `<a href="${esc(href)}" target="_blank" rel="noopener noreferrer">
-       ${label} <span aria-hidden="true">↗</span>
-     </a>`;
-
-  const links = [
-    p.url && link(p.url, "Live"),
-    p.repo && link(p.repo, "Code")
-  ].filter(Boolean);
-
-  return links.length ? `<div class="project-links">${links.join("")}</div>` : "";
-}
-
-function renderProjects(projects) {
-  const featured = projects.find((p) => p.featured);
-  const rest = projects.filter((p) => p !== featured);
-
-  el("featuredProject").innerHTML = featured ? `
-    <article class="featured reveal">
-      <div>
-        ${featured.badge ? `<span class="featured-badge">${esc(featured.badge)}</span>` : ""}
-        <h3>${fmt(featured.title)}</h3>
-        ${featured.year ? `<p class="featured-year">${fmt(featured.year)}</p>` : ""}
-        <p class="featured-desc">${fmt(featured.desc)}</p>
-        ${featured.points && featured.points.length
-          ? `<ul class="featured-points">${featured.points.map((pt) => `<li>${fmt(pt)}</li>`).join("")}</ul>`
-          : ""}
-        <div class="tag-row">${featured.tags.map((t) => `<span class="tag">${fmt(t)}</span>`).join("")}</div>
-      </div>
-      ${galleryMarkup()}
-    </article>` : "";
-
-  /* Laid out like a menu board: name, dotted leader, year. */
-el("projectGrid").innerHTML = rest.map((p) => `
-    <article class="side-item reveal">
-      <span class="side-icon" aria-hidden="true">${esc(p.icon || "\u25c6")}</span>
-      <h3 class="side-name">${fmt(p.title)}</h3>
-      <span class="side-dots" aria-hidden="true"></span>
-      <span class="side-year">${fmt(p.year)}</span>
-      ${projectLinks(p)}
-    </article>`).join("");
-}
-
-function initGallery(slides) {
-  const root = el("gallery");
-  if (!root) return;
-
-  const track = el("galleryTrack");
-  const viewport = el("galleryViewport");
-  const prev = el("galleryPrev");
-  const next = el("galleryNext");
-  const dots = el("galleryDots");
-  const caption = el("galleryCaption");
-  const counter = el("galleryCounter");
-
-  if (!slides || !slides.length) {
-    root.style.display = "none";
-    return;
-  }
-
-  track.innerHTML = slides.map((s, i) => `
-    <div class="gallery-slide" role="group" aria-roledescription="slide"
-         aria-label="${i + 1} of ${slides.length}">
-      <img src="${esc(s.src)}" alt="${esc(s.alt)}" ${i === 0 ? "" : 'loading="lazy"'} draggable="false">
-      <div class="gallery-missing">
-        <div class="gm-icon" aria-hidden="true">🖼</div>
-        <p class="gm-title">Screenshot not found</p>
-        <p>Save it as <code>${esc(s.src)}</code></p>
-      </div>
-    </div>`).join("");
-
-  track.querySelectorAll("img").forEach((img) => {
-    img.addEventListener("error", () => img.closest(".gallery-slide").classList.add("img-missing"));
-  });
-
-  dots.innerHTML = slides.map((_, i) => `
-    <button class="gallery-dot" type="button" role="tab"
-            data-index="${i}" aria-label="Screenshot ${i + 1}"></button>`).join("");
-
-  const dotEls = Array.from(dots.children);
-  let index = 0;
-
-  function go(next_, { focusViewport = false } = {}) {
-    index = Math.max(0, Math.min(slides.length - 1, next_));
-    track.style.transform = `translateX(-${index * 100}%)`;
-
-    dotEls.forEach((d, i) => {
-      d.classList.toggle("active", i === index);
-      d.setAttribute("aria-selected", String(i === index));
-    });
-
-    caption.textContent = slides[index].caption;
-    counter.textContent = `${index + 1} / ${slides.length}`;
-    prev.disabled = index === 0;
-    next.disabled = index === slides.length - 1;
-
-    if (focusViewport) viewport.focus({ preventScroll: true });
-  }
-
-  prev.addEventListener("click", () => go(index - 1));
-  next.addEventListener("click", () => go(index + 1));
-  dots.addEventListener("click", (e) => {
-    const dot = e.target.closest(".gallery-dot");
-    if (dot) go(Number(dot.dataset.index));
-  });
-
-  viewport.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowLeft") { e.preventDefault(); go(index - 1); }
-    if (e.key === "ArrowRight") { e.preventDefault(); go(index + 1); }
-    if (e.key === "Home") { e.preventDefault(); go(0); }
-    if (e.key === "End") { e.preventDefault(); go(slides.length - 1); }
-  });
-
-  let startX = 0, delta = 0, dragging = false;
-
-  viewport.addEventListener("pointerdown", (e) => {
-    dragging = true;
-    startX = e.clientX;
-    delta = 0;
-    viewport.classList.add("dragging");
-    viewport.setPointerCapture(e.pointerId);
-  });
-
-  viewport.addEventListener("pointermove", (e) => {
-    if (!dragging) return;
-    delta = e.clientX - startX;
-    const offset = -index * viewport.clientWidth + delta;
-    track.style.transform = `translateX(${offset}px)`;
-  });
-
-  function endDrag() {
-    if (!dragging) return;
-    dragging = false;
-    viewport.classList.remove("dragging");
-
-    const threshold = Math.min(80, viewport.clientWidth * 0.15);
-    if (delta > threshold) go(index - 1);
-    else if (delta < -threshold) go(index + 1);
-    else go(index);
-  }
-
-  viewport.addEventListener("pointerup", endDrag);
-  viewport.addEventListener("pointercancel", endDrag);
-  viewport.addEventListener("pointerleave", endDrag);
-
-  window.addEventListener("resize", () => go(index), { passive: true });
-
-  go(0);
-}
 
 
 function wrapToCircle(text, radius, fontSize) {
@@ -644,8 +395,6 @@ function renderAll(d) {
   renderStats(d.stats);
   renderAbout(d);
   renderServices(d);
-  renderProjects(d.projects);
-  initGallery(d.gallery);
   renderProcess(d);
 
 
@@ -1383,8 +1132,7 @@ function initTapSounds() {
   document.addEventListener("click", (e) => {
     if (!e.target.closest) return;
     const hit = e.target.closest(
-      '.rail-item a, .nav a, .btn, .icon-btn, .select-option, ' +
-      '.select-btn, .gallery-nav, .gallery-dot, .project-links a, .contact-card'
+      '.rail-item a, .nav a, .btn, .icon-btn, .select-option, .select-btn, .contact-card'
     );
     if (hit) Ambience.tap();
   }, { passive: true });

@@ -368,198 +368,6 @@ pre { margin: 0; }
 .prose { font-size: 1.05rem; color: var(--text-soft); max-width: 60ch; line-height: 1.8; }
 .prose p + p { margin-top: 1.1rem; }
 
-/* ---------- Featured project ---------- */
-.featured {
-  position: relative;
-  display: grid; grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
-  gap: clamp(1.75rem, 3.5vw, 3rem);
-  align-items: center;
-  background:
-    radial-gradient(ellipse 60% 80% at 0% 0%, var(--accent-soft), transparent 55%),
-    var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--r-xl);
-  box-shadow: var(--shadow);
-  padding: clamp(1.75rem, 3.2vw, 2.75rem);
-  overflow: hidden;
-}
-.featured::before {
-  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px;
-  background: linear-gradient(90deg, var(--accent-deep), var(--accent), transparent 70%);
-}
-.featured-badge {
-  display: inline-flex; align-items: center; gap: 0.45rem;
-  font-family: var(--font-mono); font-size: 0.66rem; font-weight: 700;
-  letter-spacing: 0.14em; text-transform: uppercase;
-  background: var(--accent-soft); color: var(--accent);
-  border: 1px solid var(--accent-line);
-  padding: 0.3rem 0.7rem; border-radius: 999px; margin-bottom: 1rem;
-}
-.featured-badge::before {
-  content: ""; width: 6px; height: 6px; border-radius: 50%;
-  background: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft);
-  animation: pulse 2.4s ease-in-out infinite;
-}
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.35; }
-}
-.featured h3 {
-  font-size: clamp(1.9rem, 4vw, 2.6rem); font-weight: 800;
-  letter-spacing: -0.04em; margin-bottom: 0.4rem;
-}
-.featured-year {
-  font-family: var(--font-mono); font-size: 0.76rem;
-  color: var(--text-muted); margin-bottom: 1.1rem;
-}
-.featured-desc { font-size: 1rem; color: var(--text-soft); margin-bottom: 1.4rem; line-height: 1.75; }
-.featured-points { display: grid; gap: 0.65rem; margin-bottom: 1.6rem; }
-.featured-points li {
-  position: relative; padding-left: 1.5rem;
-  font-size: 0.92rem; color: var(--text-soft); line-height: 1.6;
-}
-.featured-points li::before {
-  content: ""; position: absolute; left: 0; top: 0.62em;
-  width: 6px; height: 6px; border-radius: 2px;
-  background: var(--accent); transform: rotate(45deg);
-}
-
-/* ---------- Project grid ---------- */
-/* 250px lets four cards sit in one row at full width instead of 3 + 1. */
-.project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.25rem; }
-.project-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
-.project-icon {
-  display: grid; place-items: center; width: 40px; height: 40px; border-radius: var(--r-md);
-  background: var(--accent-soft); color: var(--accent);
-  border: 1px solid var(--accent-line);
-  font-size: 1.05rem; flex-shrink: 0;
-}
-.project-year { font-family: var(--font-mono); font-size: 0.74rem; color: var(--text-muted); }
-.project-desc { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.25rem; line-height: 1.65; }
-
-.project-links {
-  display: flex; gap: 1.25rem;
-  margin-top: 1.1rem; padding-top: 1rem;
-  border-top: 1px solid var(--border);
-}
-.project-links a {
-  display: inline-flex; align-items: center; gap: 0.35rem;
-  font-family: var(--font-mono); font-size: 0.74rem; font-weight: 500;
-  color: var(--accent); text-decoration: none;
-  transition: gap 0.2s ease, color 0.2s ease;
-}
-.project-links a:hover { gap: 0.55rem; color: var(--heading); }
-
-/* ---------- Screenshot gallery (inside the featured card) ---------- */
-.gallery { min-width: 0; width: 100%; }
-
-.browser {
-  position: relative;
-  border: 1px solid var(--border-strong);
-  border-radius: var(--r-md);
-  overflow: hidden;
-  background: var(--surface-2);
-  box-shadow: var(--shadow-lg);
-}
-.browser-bar {
-  display: flex; align-items: center; gap: 0.7rem;
-  padding: 0.6rem 0.85rem;
-  background: var(--surface-3);
-  border-bottom: 1px solid var(--border);
-}
-.browser-dots { display: inline-flex; gap: 0.35rem; flex-shrink: 0; }
-.browser-dots i { width: 9px; height: 9px; border-radius: 50%; background: var(--border-strong); display: block; }
-.browser-url {
-  flex: 1; text-align: center;
-  font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted);
-  background: var(--bg); border: 1px solid var(--border);
-  padding: 0.2rem 0.75rem; border-radius: 999px;
-  max-width: 200px; margin-inline: auto;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-.gallery-counter {
-  font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-muted);
-  flex-shrink: 0; min-width: 3.2em; text-align: right;
-}
-
-.gallery-frame { position: relative; }
-
-.gallery-viewport {
-  width: 100%; min-width: 0;
-  background: #fff;
-  overflow: hidden;
-  cursor: grab;
-  touch-action: pan-y;
-}
-.gallery-viewport:active { cursor: grabbing; }
-.gallery-viewport.dragging .gallery-track { transition: none; }
-
-.gallery-track {
-  display: flex;
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform;
-}
-
-.gallery-slide {
-  flex: 0 0 100%;
-  aspect-ratio: 16 / 10;
-  background: #fff;
-  display: grid; place-items: center;
-  position: relative;
-}
-.gallery-slide img {
-  width: 100%; height: 100%;
-  /* contain, not cover — the screenshots' near-white ground matches the
-     viewport background, so letterboxing is invisible and nothing is cropped. */
-  object-fit: contain; object-position: top center;
-  user-select: none; -webkit-user-drag: none;
-}
-
-.gallery-missing { display: none; padding: 2rem; text-align: center; color: var(--cocoa); }
-.gallery-slide.img-missing { background: var(--surface-2); }
-.gallery-slide.img-missing img { display: none; }
-.gallery-slide.img-missing .gallery-missing { display: block; color: var(--text-soft); }
-.gallery-missing .gm-icon { font-size: 1.8rem; margin-bottom: 0.5rem; opacity: 0.6; }
-.gallery-missing .gm-title { font-weight: 650; color: var(--heading); margin-bottom: 0.3rem; }
-.gallery-missing code {
-  font-family: var(--font-mono); font-size: 0.78rem;
-  background: var(--accent-soft); color: var(--accent);
-  padding: 0.15rem 0.45rem; border-radius: 4px;
-}
-
-.gallery-nav {
-  position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
-  width: 34px; height: 34px; border-radius: 50%;
-  display: grid; place-items: center;
-  background: color-mix(in srgb, var(--cocoa) 72%, transparent); color: var(--cream);
-  border: 1px solid color-mix(in srgb, var(--cream) 22%, transparent);
-  font-size: 1.3rem; line-height: 1; padding-bottom: 3px;
-  cursor: pointer;
-  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-  opacity: 0;
-  transition: opacity 0.22s ease, background 0.2s ease, transform 0.2s ease;
-}
-.gallery-frame:hover .gallery-nav,
-.gallery-nav:focus-visible { opacity: 1; }
-.gallery-nav.prev { left: 0.65rem; }
-.gallery-nav.next { right: 0.65rem; }
-.gallery-nav:hover:not(:disabled) { background: var(--accent); border-color: var(--accent); }
-.gallery-nav:disabled { opacity: 0 !important; pointer-events: none; }
-
-.gallery-caption {
-  margin: 1.1rem 0 0;
-  font-size: 0.86rem; color: var(--text-muted);
-  line-height: 1.6; min-height: 3.4em;
-}
-
-.gallery-dots { display: flex; gap: 0.4rem; margin-top: 0.9rem; }
-.gallery-dot {
-  height: 4px; width: 20px; border-radius: 999px; padding: 0;
-  background: var(--border-strong); border: none; cursor: pointer;
-  transition: background 0.24s ease, width 0.24s ease;
-}
-.gallery-dot:hover { background: var(--accent-line); }
-.gallery-dot.active { background: var(--accent); width: 34px; }
 
 /* ---------- Empty slots ----------
    Cards whose content is still a [placeholder] render as deliberate
@@ -771,18 +579,13 @@ a.contact-card:hover .contact-arrow { transform: translate(2px, -2px); }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
   .reveal { opacity: 1; transform: none; }
-  .gallery-nav { opacity: 1; }
 }
 
 /* ============================================================
    Responsive
    ============================================================ */
 @media (max-width: 1000px) {
-  .featured { grid-template-columns: 1fr; }
   .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
-}
-
-@media (max-width: 880px) {
 }
 
 @media (max-width: 980px) {
@@ -798,8 +601,6 @@ a.contact-card:hover .contact-arrow { transform: translate(2px, -2px); }
     clip: auto; white-space: normal; overflow: visible;
     display: grid; gap: 1.5rem;
   }
-  .gallery-slide { aspect-ratio: 4 / 3; }
-  .gallery-nav { opacity: 1; }
   .mark-name { display: none; }
   .nav-toggle { display: grid; }
   .nav {
@@ -837,7 +638,7 @@ a.contact-card:hover .contact-arrow { transform: translate(2px, -2px); }
     --shadow-sm: none; --shadow: none; --shadow-lg: none;
   }
   .topbar, .hero-actions, .footer-note, .skip-link, .scroll-progress,
-  .gallery-nav, .gallery-dots, .browser-bar, .contact-form { display: none !important; }
+  .contact-form { display: none !important; }
   body { font-size: 10.5pt; line-height: 1.45; }
   .hero { padding: 0 0 1rem; }
   .hero::before, .hero::after { display: none; }
@@ -846,10 +647,7 @@ a.contact-card:hover .contact-arrow { transform: translate(2px, -2px); }
   .section { padding: 0.9rem 0; break-inside: avoid; }
   .wrap { width: 100%; }
   .section-title { font-size: 15pt; }
-  .gallery-track { transform: none !important; display: block; }
-  .gallery-slide { flex: none; aspect-ratio: auto; break-inside: avoid; margin-bottom: 0.4rem; }
-  .gallery-viewport { overflow: visible; }
-  .featured, .contact-card, .learn-card, .mindmap {
+  .contact-card, .learn-card, .mindmap {
     break-inside: avoid; box-shadow: none; border: 1px solid color-mix(in srgb, var(--cocoa) 20%, #fff);
   }
   .reveal { opacity: 1 !important; transform: none !important; }
@@ -998,48 +796,6 @@ a.contact-card:hover .contact-arrow { transform: translate(2px, -2px); }
 }
 .section-head + .section-lede { margin-top: -1.25rem; }
 
-/* ---------- Projects as a chalkboard menu ---------- */
-.project-grid { display: block; }
-.menu-item {
-  padding: 1.5rem 0;
-  border-bottom: 1px dashed color-mix(in srgb, var(--cream) 14%, transparent);
-}
-:root[data-theme="light"] .menu-item {
-  border-bottom-color: color-mix(in srgb, var(--cocoa) 16%, transparent);
-}
-.menu-item:last-child { border-bottom: none; }
-
-.menu-line { display: flex; align-items: baseline; gap: 0.8rem; margin-bottom: 0.6rem; }
-.menu-icon {
-  flex-shrink: 0; color: var(--accent); font-size: 0.95rem;
-  transform: translateY(-1px);
-}
-.menu-name { font-size: 1.3rem; letter-spacing: -0.025em; flex-shrink: 0; }
-.menu-dots {
-  flex: 1; align-self: flex-end; margin-bottom: 0.32rem;
-  border-bottom: 2px dotted color-mix(in srgb, var(--cream) 22%, transparent);
-}
-:root[data-theme="light"] .menu-dots {
-  border-bottom-color: color-mix(in srgb, var(--cocoa) 24%, transparent);
-}
-.menu-year {
-  flex-shrink: 0; font-family: var(--font-mono); font-size: 0.8rem;
-  color: var(--accent); letter-spacing: 0.04em;
-}
-.menu-desc {
-  font-family: var(--font-menu); font-size: 1rem; line-height: 1.7;
-  color: var(--text-soft); max-width: 68ch; margin: 0 0 1rem;
-}
-.menu-foot {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 1rem 1.5rem; flex-wrap: wrap;
-}
-.menu-foot .project-links { margin: 0; padding: 0; border-top: none; }
-.menu-item.is-slot {
-  border-style: dashed; border-width: 0 0 1px 0; background: none;
-  opacity: 0.5; transform: none;
-}
-.menu-item.is-slot:hover { transform: none; opacity: 0.75; }
 
 /* ---------- Contact form as a receipt ---------- */
 .contact-form {
@@ -1209,10 +965,6 @@ body.ambience-on .brew-steam i:nth-child(2) { animation-delay: 0.9s; }
 .contact-grid .contact-card:nth-child(2) { transform: rotate(-0.9deg); }
 a.contact-card:hover { transform: rotate(0deg) translateY(-4px); }
 
-/* The Blazes browser sits on the table like a photo. */
-.browser { transform: rotate(-0.7deg); transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
-.featured:hover .browser { transform: rotate(0deg); }
-
 /* ---------- Wax stamp ---------- */
 .footer-inner { position: relative; }
 .stamp {
@@ -1230,8 +982,7 @@ a.contact-card:hover { transform: rotate(0deg) translateY(-4px); }
 @media (prefers-reduced-motion: reduce) {
   .brew-steam i { animation: none !important; }
   .learning-grid .learn-card,
-  .contact-grid .contact-card,
-  .browser { transform: none !important; }
+  .contact-grid .contact-card { transform: none !important; }
 }
 
 @media print {
@@ -1255,13 +1006,11 @@ body {
 }
 
 .prose { line-height: 1.95; }
-.menu-desc { line-height: 1.85; }
 .section-lede { line-height: 1.85; }
 
 /* Air. A calm page is mostly empty space. */
 .section { padding: clamp(3.5rem, 8vw, 6rem) 0; }
 .section-head { margin-bottom: clamp(2rem, 3.5vw, 3rem); }
-.menu-item { padding: 2.4rem 0; }
 .hero { padding: clamp(5rem, 12vw, 9rem) 0 clamp(5rem, 10vw, 8rem); }
 
 /* ---------- The reveal: slow, soft, out of focus ---------- */
@@ -1315,15 +1064,11 @@ body {
 }
 
 /* ---------- Hovers ease rather than snap ---------- */
-.menu-item, .learn-card, .contact-card, .project-links a,
-.contact-list li, .btn, .icon-btn, .nav a, .tag, .browser {
+.learn-card, .contact-card,
+.contact-list li, .btn, .icon-btn, .nav a, .tag {
   transition-duration: 0.65s !important;
   transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
-.gallery-track { transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1); }
-
-/* Menu rows lean in slightly when you rest on them. */
-.menu-item:hover { padding-left: 0.85rem; }
 
 /* ---------- The room itself drifts ---------- */
 .grain { animation: drift 34s ease-in-out infinite; }
@@ -1473,8 +1218,6 @@ body {
     border-block-color: color-mix(in srgb, var(--cocoa) 12%, transparent);
   }
 
-  /* Wide pieces need the whole column. */
-  .split-right .featured { grid-template-columns: 1fr; }
   .split-right .contact-layout { grid-template-columns: 1fr; }
   .split-right .learning-grid { grid-template-columns: 1fr; }
   .split-right .learning-grid .learn-card { margin-top: 0 !important; }
@@ -1562,44 +1305,9 @@ body {
   color: var(--text-soft); margin: 0;
 }
 
-/* ---------- The project-type select, matched to the other fields ---------- */
-
-
 /* ============================================================
-   SIDE PROJECTS + CUSTOM SELECT
+   CUSTOM SELECT
    ============================================================ */
-
-/* Quiet one-line rows. Blazes is the project that gets attention. */
-.side-item {
-  display: flex; align-items: baseline; gap: 0.7rem;
-  padding: 0.85rem 0;
-  border-bottom: 1px dashed color-mix(in srgb, var(--cream) 10%, transparent);
-}
-:root[data-theme="light"] .side-item {
-  border-bottom-color: color-mix(in srgb, var(--cocoa) 12%, transparent);
-}
-.side-item:last-child { border-bottom: none; }
-.side-icon { color: var(--text-muted); font-size: 0.8rem; flex-shrink: 0; }
-.side-name {
-  font-size: 0.98rem; font-weight: 600; letter-spacing: -0.01em;
-  color: var(--text-soft); flex-shrink: 0;
-}
-.side-dots {
-  flex: 1; align-self: flex-end; margin-bottom: 0.3rem;
-  border-bottom: 1px dotted color-mix(in srgb, var(--cream) 14%, transparent);
-}
-:root[data-theme="light"] .side-dots {
-  border-bottom-color: color-mix(in srgb, var(--cocoa) 16%, transparent);
-}
-.side-year {
-  font-family: var(--font-mono); font-size: 0.72rem;
-  color: var(--text-muted); flex-shrink: 0;
-}
-.side-item .project-links {
-  margin: 0; padding: 0; border-top: none; gap: 0.85rem; flex-shrink: 0;
-}
-.side-item .project-links a { font-size: 0.68rem; color: var(--text-muted); }
-.side-item .project-links a:hover { color: var(--accent); }
 
 /* ---------- Custom dropdown ---------- */
 .select { position: relative; }
@@ -1732,8 +1440,7 @@ body {
 h1, h2, h3, h4 { font-optical-sizing: auto; letter-spacing: -0.015em; }
 .hero-name { font-weight: 800; letter-spacing: -0.022em; }
 .section-title, .chapter-title { font-weight: 700; letter-spacing: -0.018em; }
-.menu-name, .featured h3, .service h3, .step-body h3, .learn-card h3,
-.side-name, .contact-card h3 { letter-spacing: -0.012em; }
+.service h3, .step-body h3, .learn-card h3, .contact-card h3 { letter-spacing: -0.012em; }
 .mark-name { letter-spacing: -0.01em; }
 
 /* ---------- Handwriting, where a cafe would write by hand ---------- */
