@@ -70,7 +70,7 @@
     <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
   </header>
 
-  <main id="main">
+  <main id="main" tabindex="-1">
     <!-- ================= HERO ================= -->
     <section class="hero" id="top">
       <div class="wrap hero-inner">
@@ -190,7 +190,8 @@
               <label id="cfTypeLabel">What is this about?</label>
 <div class="select" id="cfType">
                 <button type="button" class="select-btn" id="cfTypeBtn"
-                        aria-haspopup="listbox" aria-expanded="false">
+                        aria-haspopup="listbox" aria-expanded="false"
+                        aria-labelledby="cfTypeLabel cfTypeValue">
                   <span class="select-value" id="cfTypeValue">Just saying hi</span>
                   <span class="select-caret" aria-hidden="true"></span>
                 </button>

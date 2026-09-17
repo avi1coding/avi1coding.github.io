@@ -266,7 +266,7 @@ function renderSkills(map) {
     const ux = dx / len, uy = dy / len;
     return `<line x1="${(x1 + ux * r1).toFixed(1)}" y1="${(y1 + uy * r1).toFixed(1)}"
                   x2="${(x2 - ux * r2).toFixed(1)}" y2="${(y2 - uy * r2).toFixed(1)}"
-                  class="mm-spoke" style="stroke:${color}" />`;
+                  class="mm-spoke" style="stroke:${esc(color)}" />`;
   };
 
   let svg = "";
@@ -283,13 +283,13 @@ function renderSkills(map) {
       g += `<g class="mm-leaf">
               ${leaf.note ? `<title>${esc(leaf.name)}: ${esc(leaf.note)}</title>` : ""}
               <circle cx="${leaf.x.toFixed(1)}" cy="${leaf.y.toFixed(1)}" r="${R_LEAF}"
-                      class="mm-node mm-node-leaf" style="stroke:${b.color}" />
+                      class="mm-node mm-node-leaf" style="stroke:${esc(b.color)}" />
               ${circleLabel(leaf.x, leaf.y, leaf.name, R_LEAF, 11.5, "mm-label mm-label-leaf")}
             </g>`;
     });
 
     g += `<circle cx="${b.x.toFixed(1)}" cy="${b.y.toFixed(1)}" r="${R_BR}"
-                  class="mm-node mm-node-branch" style="fill:${b.color}" />`;
+                  class="mm-node mm-node-branch" style="fill:${esc(b.color)}" />`;
     g += circleLabel(b.x, b.y, b.name, R_BR, 12.5, "mm-label mm-label-branch");
 
     g += `</g>`;
@@ -301,7 +301,7 @@ function renderSkills(map) {
 
   const list = map.branches.map((b) => `
     <li class="mm-item">
-      <h3 style="color:${b.color}">${esc(b.name)}</h3>
+      <h3 style="color:${esc(b.color)}">${esc(b.name)}</h3>
       <div class="tag-row">
         ${b.skills.map((s) => `<span class="tag">${esc(s.name)}</span>`).join("")}
       </div>
@@ -1181,7 +1181,7 @@ function initSmoothScroll() {
 
   window.addEventListener("wheel", (e) => {
     if (e.ctrlKey) return;                                  // pinch zoom
-    if (e.target.closest && e.target.closest(".gallery-viewport, .select-list")) return;
+    if (e.target.closest && e.target.closest(".select-list")) return;
     e.preventDefault();
     scrollToY(target + e.deltaY * SCROLL.WHEEL_STEP);
   }, { passive: false });
@@ -1210,6 +1210,13 @@ function initSmoothScroll() {
       ? top + (dest.offsetHeight - window.innerHeight) / 2
       : top;
     scrollToY(centred);
+
+    /* Native anchor navigation moves keyboard focus to the destination;
+       our custom scroller was skipping that. Without it, the skip link
+       visually moves the page but never actually lets a keyboard user
+       past the header. preventScroll avoids fighting our own animation,
+       and focus() is a harmless no-op on a target with no tabindex. */
+    dest.focus({ preventScroll: true });
   });
 }
 

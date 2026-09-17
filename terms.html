@@ -17,6 +17,14 @@
       }
     } catch (e) { /* private mode */ }
   </script>
+  <script>
+    /* Same computed year index.html's footer uses, so the two pages never
+       drift apart when the calendar rolls over. */
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("legalCopyright").textContent =
+        `© ${new Date().getFullYear()} Avi Mehta`;
+    });
+  </script>
 </head>
 <body>
   <div class="grain" aria-hidden="true"></div>
@@ -51,10 +59,10 @@
             <tr><th>Service</th><th>Starting price</th></tr>
           </thead>
           <tbody>
-            <tr><td>One-page site</td><td>from $100</td></tr>
-            <tr><td>Multi-page site</td><td>from $250</td></tr>
-            <tr><td>Web app</td><td>from $400</td></tr>
-            <tr><td>Fix or redesign</td><td>from $75</td></tr>
+            <tr><td>One-page sites</td><td>from $100</td></tr>
+            <tr><td>Multi-page websites</td><td>from $250</td></tr>
+            <tr><td>Web apps</td><td>from $400</td></tr>
+            <tr><td>Fixes &amp; redesigns</td><td>from $75</td></tr>
           </tbody>
         </table>
         <p>
@@ -180,7 +188,7 @@
 
   <footer class="footer">
     <div class="wrap footer-inner">
-      <p>&copy; 2026 Avi Mehta</p>
+      <p id="legalCopyright"></p>
       <p class="footer-note">Built with HTML, CSS and JavaScript.</p>
     </div>
   </footer>
