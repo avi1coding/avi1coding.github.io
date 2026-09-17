@@ -37,7 +37,7 @@ const resumeData = {
 
   about: [
     "I started coding in 2021 with Scratch and Code.org. In 2024 I moved to HTML, CSS and JavaScript, and in 2025 I picked up MySQL and Python. Now I'm currently learning Java.",
-    "Other than coding, I also do robotics, band, and debate, and have participated in clubs such as FBLA and Mathcounts. I like cooking, table tennis, and biking."
+    "Other than coding, I also do robotics, band, and debate. I like cooking, table tennis, and biking."
   ],
 
 
