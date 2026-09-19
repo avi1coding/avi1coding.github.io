@@ -296,7 +296,7 @@ pre { margin: 0; }
 }
 .hero-inner {
   position: relative; z-index: 1;
-  padding: clamp(4rem, 9vw, 7rem) 0 clamp(3.5rem, 7vw, 5.5rem);
+  padding: clamp(2.5rem, 5vw, 4rem) 0 clamp(2.25rem, 4vw, 3.25rem);
 }
 
 /* ---------- Masthead: a band and an index, both full-bleed ----------
@@ -412,14 +412,14 @@ pre { margin: 0; }
 /* ============================================================
    Sections
    ============================================================ */
-.section { padding: clamp(4rem, 9vw, 6.5rem) 0; position: relative; }
+.section { padding: clamp(2.5rem, 5vw, 4rem) 0; position: relative; }
 .section-alt { background: var(--bg-alt); border-block: 1px solid var(--border); }
 
 .section-head {
   display: flex; align-items: flex-end; gap: 1.2rem;
   padding-bottom: 1rem;
   border-bottom: 6px solid var(--ink);
-  margin-bottom: clamp(2.75rem, 4.5vw, 3.75rem);
+  margin-bottom: clamp(1.5rem, 2.5vw, 2.25rem);
   position: relative;
 }
 :root[data-theme="dark"] .section-head { border-bottom-color: var(--paper); }
@@ -898,8 +898,7 @@ a.contact-card:hover .contact-arrow { transform: translate(2px, -2px); }
   .rail-item.on a::before { width: 42px; background: var(--tabloid-red); }
 
   .split-right .section {
-    display: grid; align-content: center;
-    padding: clamp(3.5rem, 7vw, 5.5rem) 0;
+    padding: clamp(2.25rem, 4vw, 3.25rem) 0;
   }
   .split-right .wrap {
     width: min(100% - 4rem, 660px);
@@ -924,14 +923,6 @@ a.contact-card:hover .contact-arrow { transform: translate(2px, -2px); }
 }
 
 @media (min-width: 1000px) {
-  /* Each chapter holds the screen for longer than it needs, so you
-     arrive, settle, read, and only then move on. */
-  .split-right .section { min-height: 112vh; scroll-snap-align: center; }
-
-  /* Snapping is for browsers doing their own scrolling. When the damped
-     scroller is active it drives the page, so snap would fight it. */
-  html:not(.js-scroll) { scroll-snap-type: y proximity; }
-
   .chapter-deck { min-height: 240px; }
 }
 
@@ -1090,10 +1081,6 @@ a.contact-card:hover .contact-arrow { transform: translate(2px, -2px); }
   border-bottom: 1.5px solid var(--accent);
   transform: rotate(45deg);
 }
-
-/* The damped scroller positions the page itself; native smooth scrolling
-   would animate on top of it and the two would stutter. */
-html.js-scroll { scroll-behavior: auto; }
 
 /* ============================================================
    TERMS PAGE
