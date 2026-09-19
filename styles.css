@@ -1,8 +1,8 @@
 /* ============================================================
    Avi Mehta — Portfolio
-   Palette: newsprint grayscale, matched to a camo tee
-     #F2F0EA  paper   ·  #C9C5B9  fog
-     #736F63  slate   ·  #211E19  ink
+   Palette: aged newsprint
+     #E7DCBA  paper (yellowed)   ·  #C7B78E  fog
+     #7C6B4A  slate              ·  #211A12  ink
    Light (paper) by default. A dark "night edition" is available
    via the toggle.
    ============================================================ */
@@ -10,10 +10,10 @@
 /* ---------- The palette. Every other colour is one of these four,
      or a mix of two of them. Nothing else is introduced. ---------- */
 :root {
-  --paper: #F2F0EA;
-  --fog:   #C9C5B9;
-  --slate: #736F63;
-  --ink:   #211E19;
+  --paper: #E7DCBA;
+  --fog:   #C7B78E;
+  --slate: #7C6B4A;
+  --ink:   #211A12;
 }
 
 /* ---------- Tokens: light (default) ----------
@@ -118,6 +118,7 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 body {
+  position: relative;
   margin: 0;
   background: var(--bg);
   color: var(--text);
@@ -169,10 +170,42 @@ pre { margin: 0; }
 /* ---------- Newsprint texture ---------- */
 .grain {
   position: fixed; inset: 0; z-index: 1; pointer-events: none;
-  opacity: 0.45; mix-blend-mode: multiply;
+  opacity: 0.5; mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
 }
-:root[data-theme="dark"] .grain { opacity: 0.3; mix-blend-mode: overlay; }
+:root[data-theme="dark"] .grain { opacity: 0.32; mix-blend-mode: overlay; }
+
+/* ---------- Age: foxing stains and a worn top/bottom edge ----------
+   Real old newsprint doesn't yellow evenly — a handful of rust-brown
+   foxing spots, sparse, not a repeating pattern, plus a bit more wear at
+   the very top and bottom of the sheet than in the middle. This is
+   `absolute`, not `fixed`, and tied to `body` (position: relative, above)
+   so it sits on the PAGE and scrolls with it — a `fixed` version repeats
+   the exact same blotch at the same spot on every screenful, which reads
+   as dirt on the glass, not wear on the paper. Every spot below is a
+   one-off placed by percentage of the whole document, so it scales with
+   however long the page is instead of tiling into a visible grid. */
+.age-stains {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background-repeat: no-repeat;
+  background-image:
+    radial-gradient(ellipse 100% 14% at 20% 0%,   color-mix(in srgb, var(--ink) 16%, transparent), transparent 75%),
+    radial-gradient(ellipse 100% 14% at 75% 100%, color-mix(in srgb, var(--ink) 18%, transparent), transparent 75%),
+    radial-gradient(ellipse 60px 46px at 8% 6%,   color-mix(in srgb, var(--ink) 30%, transparent), transparent 70%),
+    radial-gradient(ellipse 45px 34px at 88% 18%, color-mix(in srgb, var(--ink) 24%, transparent), transparent 70%),
+    radial-gradient(ellipse 55px 42px at 30% 34%, color-mix(in srgb, var(--ink) 22%, transparent), transparent 70%),
+    radial-gradient(ellipse 40px 30px at 65% 47%, color-mix(in srgb, var(--ink) 26%, transparent), transparent 70%),
+    radial-gradient(ellipse 50px 38px at 12% 61%, color-mix(in srgb, var(--ink) 20%, transparent), transparent 70%),
+    radial-gradient(ellipse 65px 50px at 90% 73%, color-mix(in srgb, var(--ink) 24%, transparent), transparent 70%),
+    radial-gradient(ellipse 42px 32px at 45% 86%, color-mix(in srgb, var(--ink) 18%, transparent), transparent 70%),
+    radial-gradient(ellipse 55px 42px at 78% 94%, color-mix(in srgb, var(--ink) 22%, transparent), transparent 70%);
+  mix-blend-mode: multiply;
+  opacity: 0.4;
+}
+:root[data-theme="dark"] .age-stains { opacity: 0.3; mix-blend-mode: overlay; }
+
+@media print { .age-stains { display: none !important; } }
+
 .topbar, main, .footer { position: relative; z-index: 2; }
 
 /* ============================================================
