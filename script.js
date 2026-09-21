@@ -1,6 +1,5 @@
 const CONTACT_FORM = {
-  accessKey: "6b724172-8296-4699-8e9a-fc9d77329035",
-  endpoint: "https://api.web3forms.com/submit",
+  endpoint: "https://formspree.io/f/mjykyrwq",
   subject: "New message from your portfolio site",
   mailto: "avimehta129@gmail.com"
 };
@@ -531,15 +530,6 @@ function initContactForm() {
     status.className = `form-status${kind ? ` is-${kind}` : ""}`;
   }
 
-  function mailtoFallback({ name, email, message, project_type }) {
-    const body = `${message}\n\nProject type: ${project_type || "not specified"}\n\nFrom ${name} (${email})`;
-    window.location.href =
-      `mailto:${CONTACT_FORM.mailto}` +
-      `?subject=${encodeURIComponent(`${CONTACT_FORM.subject}: ${name}`)}` +
-      `&body=${encodeURIComponent(body)}`;
-    setStatus("Opening your email app so you can send it.", "ok");
-  }
-
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -567,13 +557,9 @@ function initContactForm() {
       name: nameField.input.value.trim(),
       email: emailField.input.value.trim(),
       project_type: type ? type.value : "",
-      message: messageField.input.value.trim()
+      message: messageField.input.value.trim(),
+      _subject: CONTACT_FORM.subject
     };
-
-    if (!CONTACT_FORM.accessKey || CONTACT_FORM.accessKey.startsWith("PASTE_")) {
-      mailtoFallback(payload);
-      return;
-    }
 
     submit.disabled = true;
     submit.textContent = "Sending…";
@@ -583,21 +569,16 @@ function initContactForm() {
       const res = await fetch(CONTACT_FORM.endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          access_key: CONTACT_FORM.accessKey,
-          subject: CONTACT_FORM.subject,
-          from_name: "Portfolio contact form",
-          ...payload
-        })
+        body: JSON.stringify(payload)
       });
 
-      const data = await res.json().catch(() => ({}));
-
-      if (res.ok && data.success) {
+      if (res.ok) {
         form.reset();
         setStatus("Thanks, your message is on its way. I'll reply to that address.", "ok");
       } else {
-        throw new Error(data.message || "The form service rejected that.");
+        const data = await res.json().catch(() => ({}));
+        const reason = Array.isArray(data.errors) ? data.errors.map((er) => er.message).join(", ") : "";
+        throw new Error(reason || "The form service rejected that.");
       }
     } catch (err) {
       setStatus(
