@@ -329,13 +329,12 @@ pre { margin: 0; }
 .masthead-index-inner { display: flex; flex-wrap: wrap; list-style: none; margin: 0; padding: 0; }
 .masthead-index-inner li {
   flex: 1 1 auto; border-left: 1px solid var(--border);
-  display: flex; align-items: baseline; justify-content: center; gap: 0.5rem;
+  display: flex; align-items: baseline; justify-content: center;
   padding: 0.6rem 1rem;
   font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600;
   letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-soft);
 }
 .masthead-index-inner li:first-child { border-left: none; }
-.mi-num { color: var(--tabloid-red); font-weight: 700; }
 
 @media (max-width: 640px) {
   .masthead-index-inner { display: grid; grid-template-columns: repeat(2, 1fr); }
