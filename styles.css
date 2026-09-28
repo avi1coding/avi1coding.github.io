@@ -299,10 +299,10 @@ pre { margin: 0; }
   padding: clamp(2.5rem, 5vw, 4rem) 0 clamp(2.25rem, 4vw, 3.25rem);
 }
 
-/* ---------- Masthead: a band and an index, both full-bleed ----------
+/* ---------- Masthead band: full-bleed ----------
    .hero has no ancestor .wrap and no side padding of its own, so a plain
    100%-width child already reaches the true viewport edge. */
-.masthead-band, .masthead-index { position: relative; z-index: 1; width: 100%; }
+.masthead-band { position: relative; z-index: 1; width: 100%; }
 
 .masthead-band {
   border-top: 3px solid var(--ink);
@@ -318,28 +318,6 @@ pre { margin: 0; }
 }
 .masthead-band .masthead-dateline {
   margin: 0; font-size: inherit; letter-spacing: inherit; color: inherit;
-}
-
-.masthead-index {
-  border-top: 1px dashed var(--border);
-  border-bottom: 4px double var(--ink);
-}
-:root[data-theme="dark"] .masthead-index { border-bottom-color: var(--paper); }
-
-.masthead-index-inner { display: flex; flex-wrap: wrap; list-style: none; margin: 0; padding: 0; }
-.masthead-index-inner li {
-  flex: 1 1 auto; border-left: 1px solid var(--border);
-  display: flex; align-items: baseline; justify-content: center;
-  padding: 0.6rem 1rem;
-  font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600;
-  letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-soft);
-}
-.masthead-index-inner li:first-child { border-left: none; }
-
-@media (max-width: 640px) {
-  .masthead-index-inner { display: grid; grid-template-columns: repeat(2, 1fr); }
-  .masthead-index-inner li { border-left: none; border-bottom: 1px solid var(--border); }
-  .masthead-index-inner li:nth-child(odd) { border-right: 1px solid var(--border); }
 }
 
 .hero-copy { min-width: 0; max-width: 56ch; margin-inline: auto; }
