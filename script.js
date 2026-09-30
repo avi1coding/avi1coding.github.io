@@ -86,9 +86,7 @@ const resumeData = {
     { icon: "◇", title: "Machine Learning",
       desc: "How models learn from data, starting with the basics in Python." },
     { icon: "◆", title: "Java",
-      desc: "A new language for me. Stricter than JavaScript, and used for bigger apps." },
-    { icon: "◈", title: "Sorting Algorithms",
-      desc: "How the classic sorts work, and why one beats another on different data." }
+      desc: "A new language for me. Stricter than JavaScript, and used for bigger apps." }
   ],
 
 
