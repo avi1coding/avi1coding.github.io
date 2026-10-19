@@ -40,28 +40,24 @@ const resumeData = {
   pricingNote: "Half is paid upfront, the other half is paid before it goes live. Domain and hosting are not provided. <a href=\"terms.html\">Full terms</a>",
   services: [
     {
-      icon: "◐",
       title: "One-page sites",
       price: "from $100",
       desc: "One page for a club, an event, a business, or yourself, with everything on it.",
       points: ["Custom design", "Mobile ready", "Contact form"]
     },
     {
-      icon: "◑",
       title: "Multi-page websites",
       price: "from $250",
       desc: "Separate pages such as about, gallery and contact, that you can add to later.",
       points: ["Navigation", "Photo galleries", "Forms & email"]
     },
     {
-      icon: "◈",
       title: "Web apps",
       price: "from $400",
       desc: "Logins, a database and a dashboard behind it.",
       points: ["Accounts & logins", "Databases", "Dashboards"]
     },
     {
-      icon: "◷",
       title: "Fixes & redesigns",
       price: "from $75",
       desc: "If your site already exists, I rebuild the front end and keep your text.",
@@ -341,9 +337,11 @@ function renderServices(d) {
 
   grid.innerHTML = d.services.map((sv) => `
     <article class="service reveal">
-      ${sv.price ? `<span class="service-price">${fmt(sv.price)}</span>` : ""}
-      <span class="service-icon" aria-hidden="true">${esc(sv.icon)}</span>
-      <h3>${fmt(sv.title)}</h3>
+      <div class="service-head">
+        <h3>${fmt(sv.title)}</h3>
+        ${sv.price ? `<span class="service-leader" aria-hidden="true"></span>
+        <span class="service-price">${fmt(sv.price)}</span>` : ""}
+      </div>
       <p class="service-desc">${fmt(sv.desc)}</p>
       <ul class="service-points">
         ${sv.points.map((pt) => `<li>${fmt(pt)}</li>`).join("")}

@@ -7,15 +7,15 @@
   <meta name="description" content="Avi Mehta, 8th grader, coding since 2021. I build websites for people who need one.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..700&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500..700&family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..600&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..800,0..100,0..1;1,9..144,400..700,0..100,0..1&display=swap">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <!-- Newsprint texture and age staining. Purely decorative. -->
+  <!-- Paper texture and coffee rings. Purely decorative. -->
   <div class="grain" aria-hidden="true"></div>
-  <div class="age-stains" aria-hidden="true"></div>
+  <div class="coffee-rings" aria-hidden="true"></div>
 
   <header class="topbar">
     <div class="wrap topbar-inner">
@@ -43,14 +43,24 @@
   <main id="main" tabindex="-1">
     <!-- ================= HERO ================= -->
     <section class="hero" id="top">
-      <div class="masthead-band">
-        <div class="wrap masthead-band-inner">
-          <p class="masthead-dateline">Coding since 2021</p>
-        </div>
+      <div class="awning" aria-hidden="true"></div>
+      <div class="hang-sign-wrap">
+        <p class="hang-sign">Coding since 2021</p>
       </div>
 
       <div class="wrap hero-inner">
         <div class="hero-copy">
+          <div class="cup" aria-hidden="true">
+            <svg viewBox="0 0 64 64" width="68" height="68" focusable="false">
+              <path class="steam s1" d="M24 19c-3-4 3-6 0-11" />
+              <path class="steam s2" d="M32 19c-3-4 3-6 0-11" />
+              <path class="steam s3" d="M40 19c-3-4 3-6 0-11" />
+              <path class="cup-handle" d="M48 30h3.5a6.5 6.5 0 0 1 0 13H46" />
+              <path class="cup-body" d="M14 25h34v10a14 14 0 0 1-14 14h-6a14 14 0 0 1-14-14z" />
+              <ellipse class="cup-coffee" cx="31" cy="25" rx="15.5" ry="2" />
+              <path class="saucer" d="M9 55h44" />
+            </svg>
+          </div>
           <p class="masthead-kicker">Portfolio</p>
           <h1 class="hero-name" id="heroName"></h1>
           <div class="masthead-rule" aria-hidden="true"></div>
@@ -113,6 +123,7 @@
         </header>
         <p class="section-lede" id="servicesLede"></p>
         <div class="briefs-box">
+          <p class="menu-heading" aria-hidden="true">Menu</p>
           <div class="services-grid" id="servicesGrid"></div>
         </div>
         <p class="pricing-note" id="pricingNote"></p>
