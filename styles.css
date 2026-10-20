@@ -445,15 +445,6 @@ pre { margin: 0; }
 }
 .section-head + .section-lede { margin-top: -1.5rem; margin-bottom: 2.5rem; }
 
-/* ---------- About ---------- */
-.prose {
-  font-size: 1.04rem;
-  color: var(--text-soft);
-  max-width: 62ch;
-  line-height: 1.75;
-}
-.prose p + p { margin-top: 1.1rem; }
-
 /* ---------- Empty slots ----------
    Cards whose content is still a [placeholder] render as deliberate
    outlines rather than looking like broken content. */

@@ -27,17 +27,13 @@ const resumeData = {
     }
   ],
 
-  about: [
-    "I started coding in 2021 with Scratch and Code.org. In 2024 I moved to HTML, CSS and JavaScript, and in 2025 I picked up MySQL and Python. Now I'm currently learning Java.",
-    "Other than coding, I also do robotics, band, and debate. I like table tennis and biking."
-  ],
 
 
 
 
 
-  servicesLede: "I also build sites for other people. No templates. I write the code, and it's yours.",
-  pricingNote: "Half is paid upfront, the other half is paid before it goes live. Domain and hosting are not provided. <a href=\"terms.html\">Full terms</a>",
+  servicesLede: "I also build sites for other people, and can keep them up to date after. No templates. I write the code, and it's yours.",
+  pricingNote: "For a new site, half is paid upfront and the other half before it goes live. Monthly updates are $99 a month after the free first month, and you can cancel anytime. Domain and hosting are not provided. <a href=\"terms.html\">Full terms</a>",
   services: [
     {
       title: "One-page sites",
@@ -62,11 +58,17 @@ const resumeData = {
       price: "from $75",
       desc: "If your site already exists, I rebuild the front end and keep your text.",
       points: ["Speed", "Mobile layout", "Fresh design"]
+    },
+    {
+      title: "Monthly updates",
+      price: "$99/month",
+      desc: "Once your site is live, send me whatever needs changing, like prices, hours, photos or events, and I'll update it for you. The first month is free.",
+      points: ["First month free", "Text, photos & data", "Cancel anytime"]
     }
   ],
 
   processLede: "From the first message to a live site.",
-  processNote: "Payment, changes, domains and who owns the code at the end are all written out on the <a href=\"terms.html\">terms page</a>.",
+  processNote: "Payment, changes, monthly updates, domains and who owns the code at the end are all written out on the <a href=\"terms.html\">terms page</a>.",
   process: [
     { step: "01", title: "Tell me what you need", desc: "Message me what the site is for and what you want on it. I'll reply with what I would build." },
     { step: "02", title: "I design it", desc: "You'll see the layout before I build anything, so changes are quick to make at this stage." },
@@ -174,10 +176,6 @@ function renderStats(stats) {
 }
 
 
-function renderAbout(d) {
-  el("aboutText").innerHTML = d.about.map((p) => `<p>${fmt(p)}</p>`).join("");
-
-}
 
 
 
@@ -377,7 +375,6 @@ function renderProcess(d) {
 function renderAll(d) {
   renderIdentity(d);
   renderStats(d.stats);
-  renderAbout(d);
   renderServices(d);
   renderProcess(d);
 
@@ -666,7 +663,8 @@ const PROJECT_TYPES = [
   "One page",
   "Multi-page site",
   "Web app",
-  "Fix or redesign"
+  "Fix or redesign",
+  "Monthly updates"
 ];
 
 function initSelect() {
